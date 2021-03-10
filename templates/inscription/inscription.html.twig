@@ -1,0 +1,243 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+	<div class="Loader"></div>
+	<div class="wrapper">
+		{% include "Partials/header.html.twig" %}
+	</div>
+	<div class="clearfix"></div>
+	<!-- Title Header Start -->
+	<section class="inner-header-title" style="background-image:url(assets/img/bn2.jpg);">
+		<div class="container">
+			<h1>Cree un compte</h1>
+		</div>
+	</section>
+	<div class="clearfix"></div>
+	<!-- Title Header End -->
+	<!-- Tab Section Start -->
+	<section class="tab-sec gray">
+		<div class="container">
+			<div class="col-lg-8 col-md-8 col-sm-12 col-lg-offset-2 col-md-offset-2">
+				<div class="new-logwrap">
+
+					<ul class="nav modern-tabs nav-tabs theme-bg" id="simple-design-tab">
+						<li class="active">
+							<a href="#candidate">Candidate</a>
+						</li>
+						<li>
+							<a href="#employer">Employer</a>
+						</li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div id="candidate" class="tab-pane fade in active">
+							{{ form_start(CandidateForm) }}
+							<div class="form-group">
+								<label>Nom</label>
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.nom) }}
+									<i class="theme-cl ti-user"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Prenom</label>
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.prenom) }}
+									<i class="theme-cl ti-user"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Email</label>
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.email) }}
+									<i class="theme-cl ti-email"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(CandidateForm.password.first) }}
+								<div class="input-with-icon m-l-2">
+									{{ form_widget(CandidateForm.password.first, { 'attr': {'placeholder': 'Veuillez Entre Votre Mot de Passe'} }) }}
+									<i class="theme-cl ti-lock"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(CandidateForm.password.second) }}
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.password.second, { 'attr': {'placeholder': 'Veuillez Confirmer Votre Mot de Passe'} }) }}
+									<i class="theme-cl ti-lock"></i>
+								</div>
+							</div>
+
+
+							<div class="register-account text-center">
+								By hitting the
+								<span class="theme-cl">"Register"</span>
+								button, you agree to the
+								<a class="theme-cl" href="#">Terms conditions</a>
+								and
+								<a class="theme-cl" href="#">Privacy Policy</a>
+							</div>
+
+							<div class="form-groups">
+								<button type="submit" class="btn btn-primary theme-bg full-width">Inscription</button>
+							</div>
+							{{ form_end(CandidateForm) }}
+
+							<div class="social-devider">
+								<span class="line"></span>
+								<span class="circle">Or</span>
+							</div>
+
+							<div class="social-login row">
+
+								<div class="col-md-6">
+									<a href="#" class="jb-btn-icon social-login-facebook">
+										<i class="fa fa-facebook"></i>Facebook</a>
+								</div>
+
+								<div class="col-md-6">
+									<a href="#" class="jb-btn-icon social-login-google">
+										<i class="fa fa-google-plus"></i>Google</a>
+								</div>
+
+							</div>
+						</div>
+
+						<div id="employer" class="tab-pane fade">
+
+							{{ form_start(EmployerForm) }}
+							<div class="form-group">
+								<label>Nom</label>
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.nom) }}
+									<i class="theme-cl ti-user"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Prénom</label>
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.prenom) }}
+									<i class="theme-cl ti-user"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Nom Societe</label>
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.nomsociete) }}
+									<i class="theme-cl ti-home"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Email</label>
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.email) }}
+									<i class="theme-cl ti-email"></i>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								{{ form_label(EmployerForm.password.first) }}
+								<div class="input-with-icon m-l-2">
+									{{ form_widget(EmployerForm.password.first, { 'attr': {'placeholder': 'Veuillez Entre Votre Mot de Passe'} }) }}
+									<i class="theme-cl ti-lock"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(EmployerForm.password.second) }}
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.password.second, { 'attr': {'placeholder': 'Veuillez Confirmer Votre Mot de Passe'} }) }}
+									<i class="theme-cl ti-lock"></i>
+								</div>
+							</div>
+
+							<div class="register-account text-center">
+								By hitting the
+								<span class="theme-cl">"Register"</span>
+								button, you agree to the
+								<a class="theme-cl" href="#">Terms conditions</a>
+								and
+								<a class="theme-cl" href="#">Privacy Policy</a>
+							</div>
+
+							<div class="form-groups">
+								<button type="submit" class="btn btn-primary theme-bg full-width">Inscription</button>
+							</div>
+							{{ form_end(EmployerForm) }}
+
+							<div class="social-devider">
+								<span class="line"></span>
+								<span class="circle">Or</span>
+							</div>
+
+							<div class="social-login row">
+
+								<div class="col-md-6">
+									<a href="#" class="jb-btn-icon social-login-facebook">
+										<i class="fa fa-facebook"></i>Facebook</a>
+								</div>
+
+								<div class="col-md-6">
+									<a href="#" class="jb-btn-icon social-login-google">
+										<i class="fa fa-google-plus"></i>Google</a>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Tab section End -->
+	{% include "Partials/footer.html.twig" %}
+	<!-- Custom Js -->
+	{% block javascripts %}
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/viewportchecker.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootsnav.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/select2.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/wysihtml5-0.3.0.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootstrap-wysihtml5.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/datedropper.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/dropzone.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/loader.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/owl.carousel.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/slick.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/gmap3.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/jquery.easy-autocomplete.min.js')}}"></script>
+		<!-- Custom Js -->
+		<script src="assets/js/custom.js"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/counterup.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+$('#styleOptions').styleSwitcher();
+});
+
+function openRightMenu() {
+document.getElementById("rightMenu").style.display = "block";
+}
+
+function closeRightMenu() {
+document.getElementById("rightMenu").style.display = "none";
+}
+		</script>
+		{#<script src="{{ asset("assets/js/inscription.js")}}"></script> #}
+	{% endblock %}
+{% endblock %}
