@@ -44,6 +44,11 @@ class Utilisateur implements UserInterface
      */
     private $UpdatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Avatar;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +150,18 @@ class Utilisateur implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $UpdatedAt): self
     {
         $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->Avatar;
+    }
+
+    public function setAvatar(string $Avatar): self
+    {
+        $this->Avatar = $Avatar;
 
         return $this;
     }

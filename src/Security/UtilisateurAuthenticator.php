@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,7 @@ class UtilisateurAuthenticator extends AbstractFormLoginAuthenticator implements
 {
     use TargetPathTrait;
 
+    private $userRepo;
     public const LOGIN_ROUTE = 'app_login';
 
     private $entityManager;
@@ -31,12 +33,13 @@ class UtilisateurAuthenticator extends AbstractFormLoginAuthenticator implements
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, UtilisateurRepository $utilisateurRepository)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->userRepo = $utilisateurRepository;
     }
 
     public function supports(Request $request)
@@ -96,9 +99,17 @@ class UtilisateurAuthenticator extends AbstractFormLoginAuthenticator implements
             return new RedirectResponse($targetPath);
         }
 
+        $utilisateur = $this->userRepo->findByemail($request->request->get('email'));
+        //Pérmet de rediriger l'utilisateur grace a son roles
+        if ($utilisateur['0']->getRoles()['1'] === 'ROLE_CANDIDATE') {
+            return new RedirectResponse($this->urlGenerator->generate('Candidate_profile'));
+        }
+        if ($utilisateur['0']->getRoles()['1'] === 'ROLE_EMPLOYER') {
+            return new RedirectResponse($this->urlGenerator->generate('Employeur_profile'));
+        }
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         //throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('app_profile'));
+        //return new RedirectResponse($this->urlGenerator->generate('app_profile'));
     }
 
     protected function getLoginUrl()

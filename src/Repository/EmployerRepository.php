@@ -19,6 +19,18 @@ class EmployerRepository extends ServiceEntityRepository
         parent::__construct($registry, Employer::class);
     }
 
+    /**
+     * @return Employer[] Returns an array of Employer objects
+     */
+    public function findByUtilisateurId($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.Utilisateur = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Employer[] Returns an array of Employer objects
     //  */
