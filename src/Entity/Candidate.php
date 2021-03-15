@@ -38,7 +38,7 @@ class Candidate
     private $Telephone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $DateDeNaissance;
 

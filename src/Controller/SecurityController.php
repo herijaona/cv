@@ -22,11 +22,11 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        /*
+
         if ($this->getUser()) {
             return $this->redirectToRoute('app_profile');
         }
-        */
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -68,7 +68,6 @@ class SecurityController extends AbstractController
             $Candidate->setNom($data['nom']);
             $Candidate->setPrenom($data['prenom']);
             $Candidate->setTelephone($data['telephone']);
-            $Candidate->setDateDeNaissance($data['DateDeNaissance']);
             $Candidate->setSexe($data['sexe']);
             $Candidate->setAdresse($data['password']);
             $Candidate->setUtilisateur($utilisateur);

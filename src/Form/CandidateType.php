@@ -36,11 +36,6 @@ class CandidateType extends AbstractType
                     "placeholder" => "Veuillez entre votre Numero de Telephone"
                 ]
             ])
-            ->add('DateDeNaissance', TextType::class, [
-                "attr" => [
-                    "placeholder" => "Veuillez entre votre Date de Naissance"
-                ]
-            ])
             ->add('sexe', ChoiceType::class, [
                 'choices' => [
                     'selectionner' => null,

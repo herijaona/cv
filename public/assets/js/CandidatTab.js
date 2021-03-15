@@ -74,5 +74,25 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
 
+    $('#cv_form').submit(function (event) {
+        event.preventDefault();
+    });
+
+    $('.experience').on('click', function () {
+        let content = document.querySelector('.formexpcontent');
+        let form = document.querySelector('.formexp');
+        let copy = form.cloneNode(form);
+        content.appendChild(copy);
+    });
+
+    $('.education').on('click', function () {
+        let content = document.querySelector('.FormEcoleContent');
+        let form = document.querySelector('.FormEcole');
+        let copy = form.cloneNode(form);
+        content.appendChild(copy);
+    });
+
+
+
 
 });
