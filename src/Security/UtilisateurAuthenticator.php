@@ -107,6 +107,9 @@ class UtilisateurAuthenticator extends AbstractFormLoginAuthenticator implements
         if ($utilisateur['0']->getRoles()['1'] === 'ROLE_EMPLOYER') {
             return new RedirectResponse($this->urlGenerator->generate('Employeur_profile'));
         }
+        if ($utilisateur['0']->getRoles()['1'] === 'ROLE_ADMIN') {
+            return new RedirectResponse($this->urlGenerator->generate('Admin_profile'));
+        }
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         //throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
         //return new RedirectResponse($this->urlGenerator->generate('app_profile'));

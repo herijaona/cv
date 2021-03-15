@@ -32,6 +32,26 @@ class Candidate
      */
     private $Utilisateur;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Telephone;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $DateDeNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sexe;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Adresse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +89,54 @@ class Candidate
     public function setUtilisateur(?Utilisateur $Utilisateur): self
     {
         $this->Utilisateur = $Utilisateur;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->Telephone;
+    }
+
+    public function setTelephone(string $Telephone): self
+    {
+        $this->Telephone = $Telephone;
+
+        return $this;
+    }
+
+    public function getDateDeNaissance(): ?\DateTimeInterface
+    {
+        return $this->DateDeNaissance;
+    }
+
+    public function setDateDeNaissance(\DateTimeInterface $DateDeNaissance): self
+    {
+        $this->DateDeNaissance = $DateDeNaissance;
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): self
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->Adresse;
+    }
+
+    public function setAdresse(string $Adresse): self
+    {
+        $this->Adresse = $Adresse;
 
         return $this;
     }

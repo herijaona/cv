@@ -54,6 +54,7 @@ class SecurityController extends AbstractController
         $formCandidate->handleRequest($request);
         if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             $data = $formCandidate->getData();
+
             //Pérmet d'ajouter les donées dans l'entite Utilisateurs
             $utilisateur = new Utilisateur();
             $utilisateur->setEmail($data['email']);
@@ -66,6 +67,10 @@ class SecurityController extends AbstractController
             $Candidate = new Candidate();
             $Candidate->setNom($data['nom']);
             $Candidate->setPrenom($data['prenom']);
+            $Candidate->setTelephone($data['telephone']);
+            $Candidate->setDateDeNaissance($data['DateDeNaissance']);
+            $Candidate->setSexe($data['sexe']);
+            $Candidate->setAdresse($data['password']);
             $Candidate->setUtilisateur($utilisateur);
             //Pérmet d'envoier Candidate dans la base de donnée
             $manager->persist($Candidate);

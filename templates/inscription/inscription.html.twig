@@ -37,7 +37,7 @@
 						<div id="candidate" class="tab-pane fade in active">
 							{{ form_start(CandidateForm) }}
 							<div class="form-group">
-								<label>Nom</label>
+								{{ form_label(CandidateForm.nom) }}
 								<div class="input-with-icon">
 									{{ form_widget(CandidateForm.nom) }}
 									<i class="theme-cl ti-user"></i>
@@ -45,7 +45,7 @@
 							</div>
 
 							<div class="form-group">
-								<label>Prenom</label>
+								{{ form_label(CandidateForm.prenom) }}
 								<div class="input-with-icon">
 									{{ form_widget(CandidateForm.prenom) }}
 									<i class="theme-cl ti-user"></i>
@@ -53,10 +53,42 @@
 							</div>
 
 							<div class="form-group">
+								{{ form_label(CandidateForm.telephone) }}
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.telephone) }}
+									<i class="theme-cl ti-mobile"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(CandidateForm.DateDeNaissance) }}
+
+								{{ form_row(CandidateForm.DateDeNaissance, {'attr':{'class': 'form-control'}}) }}
+
+							</div>
+
+							<div class="form-group">
+								{{ form_label(CandidateForm.sexe) }}
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.sexe, {'attr':{'class': 'form-control'}}) }}
+									<i class="theme-cl ti-mobile"></i>
+								</div>
+							</div>
+
+
+							<div class="form-group">
 								<label>Email</label>
 								<div class="input-with-icon">
 									{{ form_widget(CandidateForm.email) }}
 									<i class="theme-cl ti-email"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(CandidateForm.adresse) }}
+								<div class="input-with-icon">
+									{{ form_widget(CandidateForm.adresse) }}
+									<i class="theme-cl ti-mobile"></i>
 								</div>
 							</div>
 
@@ -225,6 +257,8 @@
 		<script src="assets/js/custom.js"></script>
 		<script type="text/javascript" src="{{ asset('assets/plugins/js/counterup.min.js') }}"></script>
 		<script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+		<script src="assets/js/custom.js"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/sweetalert.js')}}"></script>
 		<script type="text/javascript">
 			$(document).ready(function () {
 $('#styleOptions').styleSwitcher();
@@ -237,7 +271,10 @@ document.getElementById("rightMenu").style.display = "block";
 function closeRightMenu() {
 document.getElementById("rightMenu").style.display = "none";
 }
+$('#expirejob').dateDropper();
 		</script>
 		{#<script src="{{ asset("assets/js/inscription.js")}}"></script> #}
+
+
 	{% endblock %}
 {% endblock %}

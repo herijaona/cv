@@ -3,21 +3,57 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 class CandidateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, ["attr" => ["class" => "form-control", "placeholder" => "Veuillez entre votre Nom"]])
-            ->add('prenom', TextType::class, ["attr" => ["class" => "form-control", "placeholder" => "Veuillez entre votre Prénom"]])
+            ->add('nom', TextType::class, [
+                "attr" => [
+                    "class" => "form-control",
+                    "placeholder" => "Veuillez entre votre Nom"
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                "attr" => [
+                    "class" => "form-control",
+                    "placeholder" => "Veuillez entre votre Prénom"
+                ]
+            ])
+            ->add('telephone', TelType::class, [
+                "attr" => [
+                    "class" => "form-control",
+                    "placeholder" => "Veuillez entre votre Numero de Telephone"
+                ]
+            ])
+            ->add('DateDeNaissance', TextType::class, [
+                "attr" => [
+                    "placeholder" => "Veuillez entre votre Date de Naissance"
+                ]
+            ])
+            ->add('sexe', ChoiceType::class, [
+                'choices' => [
+                    'selectionner' => null,
+                    'Feminin' => 'Feminin',
+                    'Masculin' => 'Masculin',
+                    'autre' => 'autre',
+                ],
+                'choice_attr' => [
+                    'attr' => ['class' => 'form-control'],
+                ],
+            ])
             ->add('email', EmailType::class, ["attr" => ["class" => "form-control", "placeholder" => "Veuillez entre votre Email"]])
+            ->add('adresse', TextType::class, ["attr" => ["class" => "form-control", "placeholder" => "Veuillez entre votre Adresse"]])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Mot de passe different',
