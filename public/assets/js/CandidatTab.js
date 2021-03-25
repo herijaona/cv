@@ -92,7 +92,4 @@ $(document).ready(function () {
         content.appendChild(copy);
     });
 
-
-
-
 });

@@ -95,8 +95,6 @@ color:#03a84e;
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
     color:#03a84e !important;
 }
-
-
 /*----------Pages Styles------------*/
 .main-heading h2>span {
     color: #03a84e;
@@ -399,6 +397,7 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
 	border-color:#03a84e;
 	}
 }
+
 
 
 

@@ -4,14 +4,15 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+
 
 class CandidateType extends AbstractType
 {
@@ -56,7 +57,8 @@ class CandidateType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de Passe'],
                 'second_options' => ['label' => 'Confirmation de Mot de Passe'],
-            ]);
+            ])
+            ->add('save', SubmitType::class, ["label" => "INSCRIPTION", "attr" => ["class" => "btn btn-primary theme-bg full-width"]]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

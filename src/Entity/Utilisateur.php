@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ * 
  */
 class Utilisateur implements UserInterface
 {
@@ -43,11 +44,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $UpdatedAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Avatar;
 
     public function getId(): ?int
     {
@@ -150,18 +146,6 @@ class Utilisateur implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $UpdatedAt): self
     {
         $this->UpdatedAt = $UpdatedAt;
-
-        return $this;
-    }
-
-    public function getAvatar(): ?string
-    {
-        return $this->Avatar;
-    }
-
-    public function setAvatar(string $Avatar): self
-    {
-        $this->Avatar = $Avatar;
 
         return $this;
     }

@@ -50,7 +50,7 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
     {
-        $formCandidate = $this->createForm(CandidateType::class);;
+        $formCandidate = $this->createForm(CandidateType::class);
         $formCandidate->handleRequest($request);
         if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             $data = $formCandidate->getData();
@@ -63,13 +63,15 @@ class SecurityController extends AbstractController
             $utilisateur->setUpdatedAt(new \DateTime());
             $utilisateur->setCreatedAt(new \DateTime());
 
+
+
             //Pérmet d'ajouter les donnée dans l'entite Candidate
             $Candidate = new Candidate();
             $Candidate->setNom($data['nom']);
             $Candidate->setPrenom($data['prenom']);
             $Candidate->setTelephone($data['telephone']);
             $Candidate->setSexe($data['sexe']);
-            $Candidate->setAdresse($data['password']);
+            $Candidate->setAdresse($data['adresse']);
             $Candidate->setUtilisateur($utilisateur);
             //Pérmet d'envoier Candidate dans la base de donnée
             $manager->persist($Candidate);
@@ -82,6 +84,7 @@ class SecurityController extends AbstractController
         $formEmployer->handleRequest($request);
         if ($formEmployer->isSubmitted() && $formEmployer->isValid()) {
             $data = $formEmployer->getData();
+
             //Pérmet d'ajouter les donnée dans l'entite utilisateur
             $utilisateur = new Utilisateur();
             $utilisateur->setEmail($data['email']);
@@ -89,11 +92,15 @@ class SecurityController extends AbstractController
             $utilisateur->setRoles(['ROLE_USER', 'ROLE_EMPLOYER']);
             $utilisateur->setCreatedAt(new \DateTime());
             $utilisateur->setUpdatedAt(new \DateTime());
+
             //Pérmet d'ajouter les donnée dans l'entite Employer
             $Employer = new Employer();
             $Employer->setNom($data['nom']);
             $Employer->setPrenom($data['prenom']);
             $Employer->setNomSociete($data['nomsociete']);
+            $Employer->setTelephone($data['telephone']);
+            $Employer->setSexe($data['sexe']);
+            $Employer->setAdresse($data['adresse']);
             $Employer->setUtilisateur($utilisateur);
             //Pérmet d'envoier Employer dans la base de donnée
             $manager->persist($Employer);

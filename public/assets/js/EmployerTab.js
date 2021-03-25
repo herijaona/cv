@@ -111,6 +111,4 @@ $(document).ready(function () {
         $('.slidebar1, li').removeClass('active');
         $(this).addClass('active');
     });
-
-
 });

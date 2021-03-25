@@ -1,0 +1,121 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	List des Candidate
+{% endblock %}
+{% block body %}
+	{% include "Partials/header.html.twig" %}
+	<div class="Loader"></div>
+	<div
+		class="wrapper">
+		<!-- Title Header Start -->
+		<section class="inner-header-title" style="background-image:url(assets/img/banner-10.jpg);">
+			<div class="container">
+				<h1>Candidate list</h1>
+			</div>
+		</section>
+		<div class="clearfix"></div>
+		<!-- Title Header End -->
+		<!-- Member list start -->
+		<section class="member-card gray">
+			<div
+				class="container d-flex">
+
+				<!-- search filter -->
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="search-filter">
+							<div class="col-md-4 col-sm-5">
+								<div class="filter-form">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="recherche">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default">Go</button>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-8 col-sm-7">
+								<div class="short-by pull-right">
+									Short By
+									<div class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
+											<i class="fa fa-angle-down" aria-hidden="true"></i>
+										</a>
+										<ul class="dropdown-menu">
+											<li>
+												<a href="#">Short By Date</a>
+											</li>
+											<li>
+												<a href="#">Short By Views</a>
+											</li>
+											<li>
+												<a href="#">Short By Popular</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- search filter End -->
+				<div class="row">
+					{% for Candidate in lesCandidates %}
+						<div class="col-md-4 col-sm-4">
+							<div class="manage-cndt">
+								<div class="cndt-status pending">Pending</div>
+								<div class="cndt-caption">
+									<div class="cndt-pic">
+										<img src="{{ asset('assets/img/client-1.jpg') }}" class="img-responsive" alt=""/>
+									</div>
+									<h4>{{ Candidate.nom }}
+										{{ Candidate.prenom }}</h4>
+									<span>Develloppeur web</span>
+									<p>Our analysis team at Megriosft use end to end innovation proces</p>
+								</div>
+								<a href="{{ path('candidate_detail', {'id': Candidate.id}) }}" title="" class="cndt-profile-btn">Voir detail</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-lg-offset-5">
+						{{ knp_pagination_render(lesCandidates) }}
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<!-- Member List End -->
+		{% include "Partials/footer.html.twig" %}
+	{% endblock %}
+	{% block javascripts %}
+		{#{{ encore_entry_script_tags('app') }}#}
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/viewportchecker.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootsnav.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/select2.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/wysihtml5-0.3.0.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/bootstrap-wysihtml5.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/datedropper.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/dropzone.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/loader.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/owl.carousel.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/slick.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/gmap3.min.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/jquery.easy-autocomplete.min.js')}}"></script>
+		<!-- Custom Js -->
+		<script src="{{ asset('assets/js/custom.js')}}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/counterup.min.js') }}"></script>
+
+		<!-- Custom Js -->
+		<script src="{{ asset('assets/js/custom.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/plugins/js/counterup.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+		<script src="{{ asset('assets/js/list.js')}}"></script>
+	{% endblock %}

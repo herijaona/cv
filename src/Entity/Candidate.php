@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CandidateRepository::class)
+ * 
  */
 class Candidate
 {
@@ -51,6 +52,18 @@ class Candidate
      * @ORM\Column(type="string", length=255)
      */
     private $Adresse;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CvForm::class, cascade={"persist", "remove"})
+     */
+    private $CurriculumVitae;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $Apropos;
+
+
 
     public function getId(): ?int
     {
@@ -137,6 +150,30 @@ class Candidate
     public function setAdresse(string $Adresse): self
     {
         $this->Adresse = $Adresse;
+
+        return $this;
+    }
+
+    public function getCurriculumVitae(): ?CvForm
+    {
+        return $this->CurriculumVitae;
+    }
+
+    public function setCurriculumVitae(?CvForm $CurriculumVitae): self
+    {
+        $this->CurriculumVitae = $CurriculumVitae;
+
+        return $this;
+    }
+
+    public function getApropos(): ?string
+    {
+        return $this->Apropos;
+    }
+
+    public function setApropos(string $Apropos): self
+    {
+        $this->Apropos = $Apropos;
 
         return $this;
     }

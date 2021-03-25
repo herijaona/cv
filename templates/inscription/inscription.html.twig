@@ -103,17 +103,8 @@
 							</div>
 
 
-							<div class="register-account text-center">
-								By hitting the
-								<span class="theme-cl">"Register"</span>
-								button, you agree to the
-								<a class="theme-cl" href="#">Terms conditions</a>
-								and
-								<a class="theme-cl" href="#">Privacy Policy</a>
-							</div>
-
 							<div class="form-groups">
-								<button type="submit" class="btn btn-primary theme-bg full-width">Inscription</button>
+								{{ form_widget(CandidateForm.save) }}
 							</div>
 							{{ form_end(CandidateForm) }}
 
@@ -135,6 +126,7 @@
 								</div>
 
 							</div>
+
 						</div>
 
 						<div id="employer" class="tab-pane fade">
@@ -169,6 +161,30 @@
 								<div class="input-with-icon">
 									{{ form_widget(EmployerForm.email) }}
 									<i class="theme-cl ti-email"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(EmployerForm.telephone) }}
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.telephone) }}
+									<i class="theme-cl ti-mobile"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(EmployerForm.sexe) }}
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.sexe, {'attr':{'class': 'form-control'}}) }}
+									<i class="theme-cl ti-mobile"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(EmployerForm.adresse) }}
+								<div class="input-with-icon">
+									{{ form_widget(EmployerForm.adresse) }}
+									<i class="theme-cl ti-mobile"></i>
 								</div>
 							</div>
 
@@ -257,11 +273,9 @@
 			$(document).ready(function () {
 $('#styleOptions').styleSwitcher();
 });
-
 function openRightMenu() {
 document.getElementById("rightMenu").style.display = "block";
 }
-
 function closeRightMenu() {
 document.getElementById("rightMenu").style.display = "none";
 }

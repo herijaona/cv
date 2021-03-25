@@ -37,6 +37,21 @@ class Employer
      */
     private $Utilisateur;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Sexe;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Adresse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +101,42 @@ class Employer
     public function setUtilisateur(?Utilisateur $Utilisateur): self
     {
         $this->Utilisateur = $Utilisateur;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->Telephone;
+    }
+
+    public function setTelephone(int $Telephone): self
+    {
+        $this->Telephone = $Telephone;
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->Sexe;
+    }
+
+    public function setSexe(string $Sexe): self
+    {
+        $this->Sexe = $Sexe;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->Adresse;
+    }
+
+    public function setAdresse(string $Adresse): self
+    {
+        $this->Adresse = $Adresse;
 
         return $this;
     }
