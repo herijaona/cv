@@ -3,14 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -19,23 +18,71 @@ class CandidateModifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', VichImageType::class, [
+
+            ->add('imageFile', FileType::class, [
                 'required' => false,
-                'allow_delete' => true,
-                'delete_label' => '...',
-                'download_label' => '...',
-                'download_uri' => true,
-                'image_uri' => true,
-                'imagine_pattern' => '...',
-                'asset_helper' => true,
+                'label' => "Avatar"
             ])
-            ->add('Nom', TextType::class)
-            ->add('Prenom', TextType::class)
-            ->add('Telephone', TelType::class)
-            ->add('DateDeNaissance', DateType::class)
-            ->add('sexe', ChoiceType::class)
-            ->add('Adresse', TextType::class)
-            ->add('Apropos', TextareaType::class);
+
+            ->add('poste', TextType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Nom', TextType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Prenom', TextType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Telephone', TelType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('DateDeNaissance', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('sexe', ChoiceType::class, [
+                'choices'  => [
+                    'selectionner' => null,
+                    'Feminin' => 'Feminin',
+                    'Masculin' => 'Masculin',
+                    'autre' => 'autre',
+                ],
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Adresse', TextType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Niveau', ChoiceType::class, [
+                'choices'  => [
+                    'Niveau' => null,
+                    'Junior' => "Junior",
+                    'Manager' => "Manager",
+                    'Senior' => "Senior",
+                ],
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ])
+            ->add('Apropos', TextareaType::class, [
+                "label" => "A Propos",
+                'attr' => [
+                    'class' => "form-control"
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

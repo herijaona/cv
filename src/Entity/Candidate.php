@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\CandidateRepository;
+use DateTime;
+use App\Entity\CvForm;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CandidateRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity(repositoryClass=CandidateRepository::class)
  * 
+ * @ORM\Entity(repositoryClass=CandidateRepository::class)
+ * @Vich\Uploadable
  */
 class Candidate
 {
@@ -20,11 +28,13 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La champs nom est vide")
      */
     private $Nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La champs prenom est vide")
      */
     private $Prenom;
 
@@ -35,34 +45,74 @@ class Candidate
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La champs telephone est vide")
      */
     private $Telephone;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * 
      */
     private $DateDeNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La champs sexe est vide")
      */
     private $sexe;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La champs Adresse est vide")
      */
     private $Adresse;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CvForm::class, cascade={"persist", "remove"})
-     */
-    private $CurriculumVitae;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $Apropos;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Poste;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Niveau;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CvForm::class, mappedBy="Candidat", cascade={"persist", "remove"})
+     */
+    private $cvForm;
+
+    /**
+     * Undocumented variable
+     *
+     * @var String|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Avatar;
+
+    /**
+     * Undocumented variable
+     *
+     * @var File|null
+     * @Vich\UploadableField(mapping="candidats", fileNameProperty="Avatar")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $CreatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $UpdateAt;
 
 
     public function getId(): ?int
@@ -154,18 +204,6 @@ class Candidate
         return $this;
     }
 
-    public function getCurriculumVitae(): ?CvForm
-    {
-        return $this->CurriculumVitae;
-    }
-
-    public function setCurriculumVitae(?CvForm $CurriculumVitae): self
-    {
-        $this->CurriculumVitae = $CurriculumVitae;
-
-        return $this;
-    }
-
     public function getApropos(): ?string
     {
         return $this->Apropos;
@@ -174,6 +212,129 @@ class Candidate
     public function setApropos(string $Apropos): self
     {
         $this->Apropos = $Apropos;
+
+        return $this;
+    }
+
+    public function getCvForm(): ?CvForm
+    {
+        return $this->cvForm;
+    }
+
+    public function setCvForm(?CvForm $cvForm): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($cvForm === null && $this->cvForm !== null) {
+            $this->cvForm->setCandidat(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($cvForm !== null && $cvForm->getCandidat() !== $this) {
+            $cvForm->setCandidat($this);
+        }
+
+        $this->cvForm = $cvForm;
+
+        return $this;
+    }
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->UpdateAt;
+    }
+
+    public function setUpdateAt(\DateTimeInterface $UpdateAt): self
+    {
+        $this->UpdateAt = $UpdateAt;
+
+        return $this;
+    }
+
+    public function getPoste(): ?string
+    {
+        return $this->Poste;
+    }
+
+    public function setPoste(string $Poste): self
+    {
+        $this->Poste = $Poste;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->Niveau;
+    }
+
+    public function setNiveau(string $Niveau): self
+    {
+        $this->Niveau = $Niveau;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  String|null
+     */
+    public function getAvatar()
+    {
+        return $this->Avatar;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  String|null  $Avatar  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setAvatar($Avatar)
+    {
+        $this->Avatar = $Avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  File|null  $imageFile  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->UpdateAt = new \DateTime('now');
+        }
 
         return $this;
     }

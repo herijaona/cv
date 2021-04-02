@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-
+use App\Entity\CandidatSearch;
+use App\Form\CandidateSearchType;
+use App\Form\SearchCandidatType;
 use App\Repository\CandidateRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,12 +19,27 @@ class CandidateController extends AbstractController
      */
     public function candidatelist(CandidateRepository $candidateRepo, Request $request, PaginatorInterface $paginator): Response
     {
-        $toutesCandidate = $candidateRepo->findAll();
+        //Pérmet d'affiche tout les candidate
+        $candidats = $candidateRepo->findAll();
+
         //Numéro de page encours, 1 pardefault
-        $candidat = $paginator->paginate($toutesCandidate, $request->query->getInt('page', 1), 1);
+        $candidat = $paginator->paginate($candidats, $request->query->getInt('page', 1), 6);
+
+        //Pérmet de declare un objet vide
+        $search = new CandidatSearch();
+
+        //Pérmet d'affiche la formulaire de recherche
+        $searchform = $this->createForm(CandidateSearchType::class, $search);
+        $searchform->handleRequest($request);
+
+        if ($searchform->isSubmitted() && $searchform->isValid()) {
+            //On recherche les candidate aux mots cle
+
+        }
 
         return $this->render('candidate/candidatelist.html.twig', [
-            "lesCandidates" => $candidat
+            "Candidates" => $candidat,
+            "SearchForm" => $searchform->createView()
         ]);
     }
     /**

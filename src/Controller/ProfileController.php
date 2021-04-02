@@ -3,14 +3,23 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Job;
+use App\Form\JobType;
 use App\Entity\CvForm;
 use App\Entity\Langue;
+use App\Entity\Employer;
 use App\Entity\Educations;
 use App\Entity\Experience;
 use App\Entity\Formations;
 use App\Entity\Competences;
+use App\Entity\Societe;
+use App\Form\EmployerModifType;
+use App\Form\CandidateModifType;
 use function PHPSTORM_META\type;
 
+use App\Form\CurriculumVitaeType;
+use App\Form\SocieteType;
+use App\Repository\JobRepository;
 use App\Repository\EmployerRepository;
 use App\Repository\CandidateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,24 +35,86 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/candidate", name="Candidate_profile", methods={"GET", "POST"})
      */
-    public function CandidateProfile(CandidateRepository $candidateRepo, Request $request): Response
+    public function CandidateProfile(CandidateRepository $candidateRepo, Request $request, EntityManagerInterface $manager): Response
     {
-        $Candidate = $candidateRepo->findByUtilisateurId($this->getUser()->getId());
+
+        $user = $this->getUser();
+        $Candidate = $candidateRepo->findOneBy(['Utilisateur' => $user]);
+
+        $CurriculumVitaeForm = $this->createForm(CurriculumVitaeType::class);
+
+        $ProfileForm = $this->createForm(CandidateModifType::class, $Candidate);
+
+        $ProfileForm->handleRequest($request);
+        if ($ProfileForm->isSubmitted() && $ProfileForm->isValid()) {
+            $Candidate->setUpdateAt(new DateTime());
+            $manager->flush();
+        }
+
+
+
+        /*
+        if ($CurriculumVitae->get('save')->isClicked()) {
+            # code...
+        }
+        */
 
 
         return $this->render('profile/candidate.html.twig', [
             'Candidate' => $Candidate,
+            'CvForm' => $CurriculumVitaeForm->createView(),
+            'ProfileForm' => $ProfileForm->createView()
         ]);
     }
 
     /**
      * @Route("/profile/Employer", name="Employeur_profile")
      */
-    public function Employer(EmployerRepository $employerRepo): Response
+    public function Employer(EmployerRepository $employerRepo, Request $request, EntityManagerInterface $entityManager, JobRepository $jobRepo): Response
     {
-        $Employer = $employerRepo->findByUtilisateurId($this->getUser()->getId());
+        $user = $this->getUser();
+
+        $employer = $employerRepo->findOneBy(['Utilisateur' => $user]);
+
+        //Déclare un nouveal job
+        $Job = new Job();
+
+        //Pérmet d'affiche un formulaire job 
+        $JobForm = $this->createForm(JobType::class, $Job);
+        $JobForm->handleRequest($request);
+        if ($JobForm->isSubmitted() &&  $JobForm->isValid()) {
+            $Job->setEmployer($employer);
+            $Job->setCreatedAt(new \DateTime());
+            $entityManager->persist($Job);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('job_detail', ["id" => $Job->getId()]);
+        }
+
+        $ProfileForm = $this->createForm(EmployerModifType::class, $employer);
+        $ProfileForm->handleRequest($request);
+        if ($ProfileForm->isSubmitted() && $ProfileForm->isValid()) {
+            $employer->setUpdatedAt(new \DateTime());
+            $entityManager->flush();
+        }
+        //Pérmet d'avoir les job crée par l'employeur
+        $Jobs = $jobRepo->findBy(['employer' => $employer->getId()]);
+
+        //Déclare un nouveau societe
+        $societe = new Societe();
+
+        //Pérmet d'affiche formulaire de societe
+        $societeForm = $this->createForm(SocieteType::class, $societe);
+        $societeForm->handleRequest($request);
+        if ($societeForm->isSubmitted() && $societeForm->isValid()) {
+            $societe->setEmployer($employer);
+        }
         return $this->render('profile/employer.html.twig', [
-            'Employer' => $Employer
+            'Employer' => $employer,
+            'JobForms' => $JobForm->createView(),
+            'ProfileEmployeur' => $ProfileForm->createView(),
+            'Jobs' => $Jobs,
+            'SocieteForm' => $societeForm->createView()
         ]);
     }
 
@@ -54,7 +125,9 @@ class ProfileController extends AbstractController
     {
         $jsonRecu = json_decode($request->getContent(), true);
 
-        dd($this->getUser());
+        $user = $this->getUser();
+        dd($user);
+
         $Cv = new CvForm();
         $Cv->setProfile($jsonRecu["profile"]);
 
@@ -90,6 +163,8 @@ class ProfileController extends AbstractController
             $DateDeFin = new DateTime($Formation['dateFin']);
             $this->ajouterFormation($Cv, $Formation['formation'], $Formation['etablissement'], $DateDeDebut, $DateDeFin, $Formation['description']);
         }
+
+        $Cv->setCandidat();
 
         $jsonEnvoier = $serializer->serialize($Cv, "json", ['groups' => "Cv:ecrire"]);
 

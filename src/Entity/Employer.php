@@ -2,11 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EmployerRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=EmployerRepository::class)
+ * @Vich\Uploadable
  */
 class Employer
 {
@@ -28,14 +34,10 @@ class Employer
     private $Prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $NomSociete;
+    private $DateDeNaissance;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Utilisateur::class, cascade={"persist", "remove"})
-     */
-    private $Utilisateur;
 
     /**
      * @ORM\Column(type="integer")
@@ -47,10 +49,73 @@ class Employer
      */
     private $Sexe;
 
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $Adresse;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="employer")
+     */
+    private $Job;
+
+    /**
+     * Undocumented variable
+     *
+     * @var String|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Avatar;
+
+    /**
+     * Undocumented variable
+     *
+     * @var File|null
+     * @Vich\UploadableField(mapping="employeur", fileNameProperty="Avatar")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Utilisateur::class, cascade={"persist", "remove"})
+     */
+    private $Utilisateur;
+
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $CreatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $UpdatedAt;
+
+
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $Apropos;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Poste;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Societe::class, mappedBy="Employeur")
+     */
+    private $societes;
+
+
+    public function __construct()
+    {
+        $this->Job = new ArrayCollection();
+        $this->Societe = new ArrayCollection();
+        $this->societes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,18 +142,6 @@ class Employer
     public function setPrenom(string $Prenom): self
     {
         $this->Prenom = $Prenom;
-
-        return $this;
-    }
-
-    public function getNomSociete(): ?string
-    {
-        return $this->NomSociete;
-    }
-
-    public function setNomSociete(string $NomSociete): self
-    {
-        $this->NomSociete = $NomSociete;
 
         return $this;
     }
@@ -137,6 +190,179 @@ class Employer
     public function setAdresse(string $Adresse): self
     {
         $this->Adresse = $Adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getJob(): Collection
+    {
+        return $this->Job;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->Job->contains($job)) {
+            $this->Job[] = $job;
+            $job->setEmployer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->Job->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getEmployer() === $this) {
+                $job->setEmployer(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $UpdatedAt): self
+    {
+        $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function getDateDeNaissance(): ?\DateTimeInterface
+    {
+        return $this->DateDeNaissance;
+    }
+
+    public function setDateDeNaissance(?\DateTimeInterface $DateDeNaissance): self
+    {
+        $this->DateDeNaissance = $DateDeNaissance;
+
+        return $this;
+    }
+
+    public function getApropos(): ?string
+    {
+        return $this->Apropos;
+    }
+
+    public function setApropos(?string $Apropos): self
+    {
+        $this->Apropos = $Apropos;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  String|null
+     */
+    public function getAvatar()
+    {
+        return $this->Avatar;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  String|null  $Avatar  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setAvatar($Avatar)
+    {
+        $this->Avatar = $Avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  File|null  $imageFile  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->UpdateAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getPoste(): ?string
+    {
+        return $this->Poste;
+    }
+
+    public function setPoste(string $Poste): self
+    {
+        $this->Poste = $Poste;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Societe[]
+     */
+    public function getSocietes(): Collection
+    {
+        return $this->societes;
+    }
+
+    public function addSociete(Societe $societe): self
+    {
+        if (!$this->societes->contains($societe)) {
+            $this->societes[] = $societe;
+            $societe->setEmployeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSociete(Societe $societe): self
+    {
+        if ($this->societes->removeElement($societe)) {
+            // set the owning side to null (unless already changed)
+            if ($societe->getEmployeur() === $this) {
+                $societe->setEmployeur(null);
+            }
+        }
 
         return $this;
     }

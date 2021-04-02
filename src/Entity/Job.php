@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\JobRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\JobRepository;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=JobRepository::class)
+ * @Vich\Uploadable
  */
 class Job
 {
@@ -22,7 +23,7 @@ class Job
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $TitreJob;
+    private $Titre;
 
     /**
      * @ORM\Column(type="text")
@@ -30,28 +31,65 @@ class Job
     private $Description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=JobCategory::class, mappedBy="Job")
+     * @ORM\Column(type="string", length=255)
      */
-    private $jobCategories;
+    private $Category;
 
-    public function __construct()
-    {
-        $this->jobCategories = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Niveau;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Employer::class, inversedBy="Job")
+     */
+    private $employer;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $DateExpiration;
+
+    /**
+     * Undocumented variable
+     *
+     * @var String|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Image;
+
+    /**
+     * Undocumented variable
+     *
+     * @var File|null
+     * @Vich\UploadableField(mapping="job_image", fileNameProperty="Image")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $CreatedAt;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitreJob(): ?string
+    public function getTitre(): ?string
     {
-        return $this->TitreJob;
+        return $this->Titre;
     }
 
-    public function setTitreJob(string $TitreJob): self
+    public function setTitre(string $Titre): self
     {
-        $this->TitreJob = $TitreJob;
+        $this->Titre = $Titre;
 
         return $this;
     }
@@ -68,28 +106,125 @@ class Job
         return $this;
     }
 
-    /**
-     * @return Collection|JobCategory[]
-     */
-    public function getJobCategories(): Collection
+    public function getCategory(): ?string
     {
-        return $this->jobCategories;
+        return $this->Category;
     }
 
-    public function addJobCategory(JobCategory $jobCategory): self
+    public function setCategory(string $Category): self
     {
-        if (!$this->jobCategories->contains($jobCategory)) {
-            $this->jobCategories[] = $jobCategory;
-            $jobCategory->addJob($this);
-        }
+        $this->Category = $Category;
 
         return $this;
     }
 
-    public function removeJobCategory(JobCategory $jobCategory): self
+    public function getType(): ?string
     {
-        if ($this->jobCategories->removeElement($jobCategory)) {
-            $jobCategory->removeJob($this);
+        return $this->Type;
+    }
+
+    public function setType(string $Type): self
+    {
+        $this->Type = $Type;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->Niveau;
+    }
+
+    public function setNiveau(string $Niveau): self
+    {
+        $this->Niveau = $Niveau;
+
+        return $this;
+    }
+
+    public function getEmployer(): ?Employer
+    {
+        return $this->employer;
+    }
+
+    public function setEmployer(?Employer $employer): self
+    {
+        $this->employer = $employer;
+
+        return $this;
+    }
+
+    public function getDateExpiration(): ?\DateTimeInterface
+    {
+        return $this->DateExpiration;
+    }
+
+    public function setDateExpiration(\DateTimeInterface $DateExpiration): self
+    {
+        $this->DateExpiration = $DateExpiration;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  String|null
+     */
+    public function getImage()
+    {
+        return $this->Image;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  String|null  $Image  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setImage($Image)
+    {
+        $this->Image = $Image;
+
+        return $this;
+    }
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  File|null  $imageFile  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->UpdateAt = new \DateTime('now');
         }
 
         return $this;

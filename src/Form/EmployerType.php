@@ -30,12 +30,6 @@ class EmployerType extends AbstractType
                     "placeholder" => "Veuillez entre votre Prénom"
                 ]
             ])
-            ->add('nomsociete', TextType::class, [
-                "attr" => [
-                    "class" => "form-control",
-                    "placeholder" => "Veuillez entre votre Nom de societe"
-                ]
-            ])
             ->add('email', EmailType::class, [
                 "attr" => [
                     "class" => "form-control",

@@ -1,0 +1,194 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Employe Detail
+{% endblock %}
+{% block body %}
+	<div class="Loader"></div>
+	<div class="wrapper">
+		{% include "Partials/header.html.twig" %}
+		<div class="clearfix"></div>
+		<!-- Title Header Start -->
+		<section class="inner-header-page">
+			<div class="container">
+
+				<div class="col-md-12">
+					<div class="left-side-container">
+						<div class="freelance-image">
+							<a href="company-detail.html"><img src="{{ asset('assets/img/com-2.jpg') }}" class="img-responsive" alt=""></a>
+						</div>
+						<div class="header-details">
+							<h4>{{ Job.Titre }}</h4>
+							<p>//NomSociete</p>
+							<ul>
+								<li>
+									<a href="single-company-profile.html">
+										<i class="fa fa-user"></i>
+										7 Vacancy</a>
+								</li>
+								<li>
+									<div class="star-rating" data-rating="4.2">
+										<span class="fa fa-star fill"></span>
+										<span class="fa fa-star fill"></span>
+										<span class="fa fa-star fill"></span>
+										<span class="fa fa-star fill"></span>
+										<span class="fa fa-star-half fill"></span>
+									</div>
+								</li>
+								<li><img class="flag" src="assets/img/gb.svg" alt="">
+									{{Job.employer.Adresse}}</li>
+								<li>
+									<div class="verified-action">Verified</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<div class="clearfix"></div>
+		<!-- Title Header End -->
+
+		<!-- Job Detail Start -->
+		<section>
+			<div class="container">
+
+				<div class="col-md-8 col-sm-12">
+					<div class="container-detail-box">
+
+						<div class="apply-job-header">
+							<h4>{{Job.Titre}}</h4>
+							<a href="company-detail.html" class="cl-success">
+								<span>
+									<i class="fa fa-building"></i>
+									//NomSociete</span>
+							</a>
+							<span>
+								<i class="fa fa-map-marker"></i>
+								{{Job.employer.Adresse}}</span>
+						</div>
+
+						<div class="apply-job-detail">
+							<p>{{Job.Description}}</p>
+						</div>
+
+						<div class="apply-job-detail">
+							<h5>Competences</h5>
+							<ul class="skills">
+								<li>Css3</li>
+								<li>Html5</li>
+								<li>Photoshop</li>
+								<li>Wordpress</li>
+								<li>PHP</li>
+								<li>Java Script</li>
+							</ul>
+						</div>
+
+						<div class="apply-job-detail">
+							<h5>Requirements</h5>
+							<ul class="job-requirements">
+								<li>
+									<span>Availability</span>
+									Hourly</li>
+								<li>
+									<span>Education</span>
+									Graduate</li>
+								<li>
+									<span>Age</span>
+									25+</li>
+								<li>
+									<span>Experience</span>
+									Intermidiate (3 - 5Year)</li>
+								<li>
+									<span>Language</span>
+									English, Hindi</li>
+							</ul>
+						</div>
+
+
+						<a href="#" class="btn btn-success">Poster</a>
+
+					</div>
+
+					<div class="job-detail-statistic flex-middle-sm">
+
+						<div class="statistic-item flex-middle">
+							<div class="icon text-theme">
+								<i class="ti-headphone theme-cl"></i>
+							</div>
+							<span class="text">+261
+								{{Job.employer.telephone}}</span>
+						</div>
+
+						<div class="statistic-item flex-middle">
+							<div class="icon text-theme">
+								<i class="ti-email theme-cl"></i>
+							</div>
+							<span class="text">{{Job.employer.Utilisateur.email}}</span>
+						</div>
+
+						<div class="statistic-item flex-middle">
+							<div class="icon text-theme">
+								<i class="ti-skype theme-cl"></i>
+							</div>
+							<span class="text">themezhub</span>
+						</div>
+
+					</div>
+
+				</div>
+
+				<!-- Sidebar Start-->
+				<div
+					class="col-md-4 col-sm-12">
+
+					<!-- Share This Job -->
+					<div class="sidebar-wrapper">
+						<div class="sidebar-box-header bb-1">
+							<h4>Partager Job</h4>
+						</div>
+
+						<ul class="social-share">
+							<li>
+								<a href="#" class="fb-share">
+									<i class="fa fa-facebook"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="tw-share">
+									<i class="fa fa-twitter"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="gp-share">
+									<i class="fa fa-google-plus"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="in-share">
+									<i class="fa fa-instagram"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="li-share">
+									<i class="fa fa-linkedin"></i>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="be-share">
+									<i class="fa fa-behance"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- End Sidebar -->
+
+			</div>
+		</section>
+		<!-- Job Detail End -->
+		<pre>
+			{{ dump(Job.employer.Societe.Nom) }}
+		</pre>
+		{% include "Partials/footer.html.twig" %}
+	{% endblock %}

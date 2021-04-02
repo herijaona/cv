@@ -7,6 +7,7 @@ use App\Entity\Candidate;
 use App\Form\EmployerType;
 use App\Entity\Utilisateur;
 use App\Form\CandidateType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,6 +74,7 @@ class SecurityController extends AbstractController
             $Candidate->setSexe($data['sexe']);
             $Candidate->setAdresse($data['adresse']);
             $Candidate->setUtilisateur($utilisateur);
+            $Candidate->setCreatedAt(new \DateTime());
             //Pérmet d'envoier Candidate dans la base de donnée
             $manager->persist($Candidate);
             $manager->flush();
@@ -97,11 +99,11 @@ class SecurityController extends AbstractController
             $Employer = new Employer();
             $Employer->setNom($data['nom']);
             $Employer->setPrenom($data['prenom']);
-            $Employer->setNomSociete($data['nomsociete']);
             $Employer->setTelephone($data['telephone']);
             $Employer->setSexe($data['sexe']);
             $Employer->setAdresse($data['adresse']);
             $Employer->setUtilisateur($utilisateur);
+            $Employer->setCreatedAt(new \DateTime());
             //Pérmet d'envoier Employer dans la base de donnée
             $manager->persist($Employer);
             $manager->flush();

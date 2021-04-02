@@ -19,19 +19,7 @@ class CandidateRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidate::class);
     }
 
-    /**
-     * @return Candidate[] Returns an array of Candidate objects
-     */
 
-
-    public function findByUtilisateurId($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.Utilisateur = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getResult();
-    }
 
 
     // /**

@@ -8,9 +8,9 @@
 	<div
 		class="wrapper">
 		<!-- Title Header Start -->
-		<section class="inner-header-title" style="background-image:url(assets/img/banner-10.jpg);">
+		<section class="inner-header-title" style="background-image:url({{ asset('assets/img/banner-10.jpg') }});">
 			<div class="container">
-				<h1>Candidate list</h1>
+				<h1>Candidat liste</h1>
 			</div>
 		</section>
 		<div class="clearfix"></div>
@@ -21,73 +21,69 @@
 				class="container d-flex">
 
 				<!-- search filter -->
-				<div class="row">
-					<div class="col-md-12 col-sm-12">
-						<div class="search-filter">
-							<div class="col-md-4 col-sm-5">
-								<div class="filter-form">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="recherche">
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default">Go</button>
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-8 col-sm-7">
-								<div class="short-by pull-right">
-									Short By
-									<div class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
-											<i class="fa fa-angle-down" aria-hidden="true"></i>
-										</a>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="#">Short By Date</a>
-											</li>
-											<li>
-												<a href="#">Short By Views</a>
-											</li>
-											<li>
-												<a href="#">Short By Popular</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-
+				<div class="row mb-3">
+					<div class="">
+						{{ form_start(SearchForm) }}
+						<div class="col-md-4 col-sm-4">
+							{{ form_widget(SearchForm.Poste) }}
 						</div>
+						<div class="col-md-3 col-sm-3">
+							{{ form_widget(SearchForm.Niveau) }}
+						</div>
+						<div class="col-md-2 col-sm-2">
+							{{ form_widget(SearchForm.Rechercher) }}
+						</div>
+						{{ form_end(SearchForm) }}
+
 					</div>
 				</div>
 				<!-- search filter End -->
 				<div class="row">
-					{% for Candidate in lesCandidates %}
-						<div class="col-md-4 col-sm-4">
-							<div class="manage-cndt">
-								<div class="cndt-status pending">Pending</div>
-								<div class="cndt-caption">
-									<div class="cndt-pic">
-										<img src="{{ asset('assets/img/client-1.jpg') }}" class="img-responsive" alt=""/>
+					{% for Candidate in Candidates %}
+
+						<div class="col-md-4 col-sm-6">
+							<div class="top-candidate-wrap style-2">
+								<div class="top-candidate-box">
+									<span class="tpc-status">Disponible</span>
+									<div class="tp-candidate-inner-box">
+										<div class="top-candidate-box-thumb">
+											<img src="{% if Candidate.Avatar != null %}{{ vich_uploader_asset(Candidate, 'imageFile') }}{% else %}{{ asset('assets/img/Utilisateur.svg') }}{% endif %}" class="img-responsive" alt="avatar" class="img-responsive img-circle" alt=""/>
+										</div>
+										<div class="top-candidate-box-detail">
+											<h4>{{ Candidate.nom }}
+												{{ Candidate.prenom }}</h4>
+											<span class="location">{{ Candidate.poste }}</span>
+										</div>
+										<div class="rattings">
+											<i class="fa fa-star fill"></i>
+											<i class="fa fa-star fill"></i>
+											<i class="fa fa-star fill"></i>
+											<i class="fa fa-star-half fill"></i>
+											<i class="fa fa-star"></i>
+										</div>
 									</div>
-									<h4>{{ Candidate.nom }}
-										{{ Candidate.prenom }}</h4>
-									<span>Develloppeur web</span>
-									<p>Our analysis team at Megriosft use end to end innovation proces</p>
+									<div class="top-candidate-box-extra">
+										<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui.</p>
+										<ul>
+											<li>Php</li>
+											<li>Android</li>
+											<li>Html</li>
+											<li class="more-skill bg-primary">+3</li>
+										</ul>
+									</div>
+									<a href="{{ path('candidate_detail', {'id': Candidate.id}) }}" class="btn btn-candidate-two bg-default">Voire Detail</a>
+									<a href="#" class="btn btn-candidate-two bg-info">Shortlist</a>
 								</div>
-								<a href="{{ path('candidate_detail', {'id': Candidate.id}) }}" title="" class="cndt-profile-btn">Voir detail</a>
 							</div>
 						</div>
+
 					{% endfor %}
 				</div>
-
-				<div class="row">
-					<div class="col-lg-3 col-lg-offset-5">
-						{{ knp_pagination_render(lesCandidates) }}
-					</div>
-
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-lg-offset-5">
+					{{ knp_pagination_render(Candidates) }}
 				</div>
-
 			</div>
 		</section>
 		<!-- Member List End -->
