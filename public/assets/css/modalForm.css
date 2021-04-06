@@ -1,0 +1,9 @@
+.modal-body .form-control {
+    margin: 0 !important;  
+    padding: 0 !important;
+}
+.modal-body .form-group {    
+    margin: 0 !important;
+    padding: 0 7px 0 7px !important;    
+}
+

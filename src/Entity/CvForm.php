@@ -21,12 +21,6 @@ class CvForm
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups("Cv:ecrire")
-     */
-    private $Profile;
-
 
     /**
      * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="cvForm", cascade={"persist", "remove"})
@@ -74,18 +68,6 @@ class CvForm
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProfile(): ?string
-    {
-        return $this->Profile;
-    }
-
-    public function setProfile(string $Profile): self
-    {
-        $this->Profile = $Profile;
-
-        return $this;
     }
 
     /**

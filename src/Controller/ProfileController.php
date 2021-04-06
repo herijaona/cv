@@ -7,27 +7,35 @@ use App\Entity\Job;
 use App\Form\JobType;
 use App\Entity\CvForm;
 use App\Entity\Langue;
-use App\Entity\Employer;
+use App\Entity\Societe;
+use App\Form\LangueType;
+use App\Form\SocieteType;
 use App\Entity\Educations;
 use App\Entity\Experience;
 use App\Entity\Formations;
 use App\Entity\Competences;
-use App\Entity\Societe;
+use App\Form\EducationType;
+use App\Form\CompetenceType;
+use App\Form\ExperienceType;
+use App\Form\FormationsType;
 use App\Form\EmployerModifType;
 use App\Form\CandidateModifType;
-use function PHPSTORM_META\type;
-
-use App\Form\CurriculumVitaeType;
-use App\Form\SocieteType;
 use App\Repository\JobRepository;
+use App\Repository\CvFormRepository;
+use App\Repository\LangueRepository;
 use App\Repository\EmployerRepository;
 use App\Repository\CandidateRepository;
+use App\Repository\CompetencesRepository;
+use App\Repository\EducationsRepository;
+use App\Repository\ExperienceRepository;
+use App\Repository\FormationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProfileController extends AbstractController
@@ -35,13 +43,22 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/candidate", name="Candidate_profile", methods={"GET", "POST"})
      */
-    public function CandidateProfile(CandidateRepository $candidateRepo, Request $request, EntityManagerInterface $manager): Response
+    public function CandidateProfile(CandidateRepository $candidateRepo, Request $request, EntityManagerInterface $manager, ExperienceRepository $experienceRepository, CvFormRepository $cvFormRepository, EducationsRepository $educationsRepository, FormationsRepository $formationsRepository, LangueRepository $langueRepository, CompetencesRepository $competencesRepository): Response
     {
 
         $user = $this->getUser();
         $Candidate = $candidateRepo->findOneBy(['Utilisateur' => $user]);
 
-        $CurriculumVitaeForm = $this->createForm(CurriculumVitaeType::class);
+        //Pérmet de recuperer CV
+        $CurriculumVitae = $cvFormRepository->findOneBy(['Candidat' => $Candidate]);
+
+
+        if ($CurriculumVitae->getId() == null) {
+            //Declare un nouveaux CV
+            $CurriculumVitae = new CvForm();
+            $CurriculumVitae->setCandidat($Candidate);
+        }
+
 
         $ProfileForm = $this->createForm(CandidateModifType::class, $Candidate);
 
@@ -52,18 +69,86 @@ class ProfileController extends AbstractController
         }
 
 
-
-        /*
-        if ($CurriculumVitae->get('save')->isClicked()) {
-            # code...
+        //Pérmet d'affiche la formulaire d'ajout de Experiences
+        $ExpForm = $this->createForm(ExperienceType::class);
+        //Pérmet d'analiser la requete
+        $ExpForm->handleRequest($request);
+        if ($ExpForm->isSubmitted() && $ExpForm->isValid()) {
+            $data = $ExpForm->getData();
+            $data->setCvForm($CurriculumVitae);
+            $manager->persist($data);
+            $manager->flush();
         }
-        */
+        //Pérmet d'affiche la list de Experience
+        $Expencelist = $experienceRepository->findBy(["cvForm" => $CurriculumVitae]);
+
+        //Pérmet d'affiche la formulaire d'ajout de Experiences
+        $EducationForm = $this->createForm(EducationType::class);
+        //Pérmet d'analyser la requete
+        $EducationForm->handleRequest($request);
+        if ($EducationForm->isSubmitted() && $EducationForm->isValid()) {
+            $data = $EducationForm->getData();
+            $data->setCvForm($CurriculumVitae);
+            $manager->persist($data);
+            $manager->flush();
+        }
+        //Pérmet d'affiche la list de Etude
+        $Etude = $educationsRepository->findBy(["cvForm" => $CurriculumVitae]);
+
+        //Pérmet d'affiche la formulaire d'ajout de Formations
+        $FormationsForm = $this->createForm(FormationsType::class);
+        //Pérmet d'analyser la requete
+        $FormationsForm->handleRequest($request);
+        if ($FormationsForm->isSubmitted() && $FormationsForm->isValid()) {
+            $data = $FormationsForm->getData();
+            $data->setCvForm($CurriculumVitae);
+            $manager->persist($data);
+            $manager->flush();
+        }
+        //Pérmet d'affiche la list de Formations
+        $Formationlist = $formationsRepository->findBy(["cvForm" => $CurriculumVitae]);
+
+        //Pérmet d'affiche la formulaire d'ajout de Langues
+        $langueForm = $this->createForm(LangueType::class);
+        //Pérmet d'analyser la requete
+        $langueForm->handleRequest($request);
+        if ($langueForm->isSubmitted() && $langueForm->isValid()) {
+            $data = $langueForm->getData();
+            $data->setCvForm($CurriculumVitae);
+            $manager->persist($data);
+            $manager->flush();
+        }
+        //Pérmet d'affiche la list de Langues
+        $LanguesList = $langueRepository->findBy(["cvForm" => $CurriculumVitae]);
+
+        //Pérmet d'affiche la formulaire d'ajout de Comptences
+        $ComptenceForm = $this->createForm(CompetenceType::class);
+        //Pérmet d'analyser la requete
+        $ComptenceForm->handleRequest($request);
+        if ($ComptenceForm->isSubmitted() && $ComptenceForm->isValid()) {
+            $data = $ComptenceForm->getData();
+            $data->setCvForm($CurriculumVitae);
+            $manager->persist($data);
+            $manager->flush();
+        }
+        //Pérmet d'affiche la list de Compences
+        $CompetencesList = $competencesRepository->findBy(["cvForm" => $CurriculumVitae]);
+
 
 
         return $this->render('profile/candidate.html.twig', [
             'Candidate' => $Candidate,
-            'CvForm' => $CurriculumVitaeForm->createView(),
-            'ProfileForm' => $ProfileForm->createView()
+            'Experiencelist' => $Expencelist,
+            'Educationlist' => $Etude,
+            'Formationlist' => $Formationlist,
+            'languelist' => $LanguesList,
+            'Comptencelist' => $CompetencesList,
+            'ProfileForm' => $ProfileForm->createView(),
+            'Expform' => $ExpForm->createView(),
+            'Educationform' => $EducationForm->createView(),
+            'Formationform' => $FormationsForm->createView(),
+            'LangueForm' => $langueForm->createView(),
+            'CompetencesForm' => $ComptenceForm->createView()
         ]);
     }
 
@@ -103,12 +188,8 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
 
-
-
         //Déclare un nouveau societe
         $societe = new Societe();
-
-
 
 
         //Pérmet d'affiche formulaire de societe
@@ -126,126 +207,5 @@ class ProfileController extends AbstractController
             "Joblist" => $jobliste,
             'SocieteForm' => $societeForm->createView()
         ]);
-    }
-
-    /**
-     * @Route("/cv/inser", name="inser_cv", methods={"POST"})
-     */
-    public function ajouterCv(Request $request, SerializerInterface $serializer)
-    {
-        $jsonRecu = json_decode($request->getContent(), true);
-
-        $user = $this->getUser();
-        dd($user);
-
-        $Cv = new CvForm();
-        $Cv->setProfile($jsonRecu["profile"]);
-
-        $Experiences = $jsonRecu['experiences'];
-
-        foreach ($Experiences as $Experience) {
-            $DateDeDebut = new DateTime($Experience['datedebut']);
-            $DateDeFin = new DateTime($Experience['datefin']);
-            $this->ajouterExperience($Cv, $Experience['titre'], $Experience['societe'], $DateDeDebut, $DateDeFin, $Experience['description']);
-        }
-        $Competences = $jsonRecu['competences'];
-        foreach ($Competences as $Competence) {
-            $this->ajouterCompetence($Cv, $Competence['titre'], $Competence['valeur']);
-        }
-
-        $Educations = $jsonRecu['educations'];
-        foreach ($Educations as $Education) {
-            $DateDeDebut = new DateTime($Education['datedebut']);
-            $DateDeFin = new DateTime($Education['datefin']);
-            $this->ajouterEducation($Cv, $Education['titre'], $Education['ecole'], $DateDeDebut, $DateDeFin, $Education['description']);
-        }
-
-
-        $Langues = $jsonRecu['langues'];
-        foreach ($Langues as $Langue) {
-            $this->ajouterLangue($Cv, $Langue['langue'], $Langue['niveau']);
-        }
-
-        $Formations = $jsonRecu['formations'];
-
-        foreach ($Formations as $Formation) {
-            $DateDeDebut = new DateTime($Formation['dateDebut']);
-            $DateDeFin = new DateTime($Formation['dateFin']);
-            $this->ajouterFormation($Cv, $Formation['formation'], $Formation['etablissement'], $DateDeDebut, $DateDeFin, $Formation['description']);
-        }
-
-        $Cv->setCandidat();
-
-        $jsonEnvoier = $serializer->serialize($Cv, "json", ['groups' => "Cv:ecrire"]);
-
-
-
-        $response = new JsonResponse($jsonEnvoier, 200, [], true);
-        return $response;
-    }
-
-    private function ajouterEducation(CvForm $cvForm, $titre, $nomecole, $dateDeDebut, $DateDeFin, $Description)
-    {
-        $Education = new Educations();
-        $Education->setTitre($titre);
-        $Education->setNomEcole($nomecole);
-        $Education->setDateDeDebut($dateDeDebut);
-        $Education->setDateDeFin($DateDeFin);
-        $Education->setDescription($Description);
-        $Education->setCvForm($cvForm);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($Education);
-        $manager->flush();
-    }
-
-
-    private function ajouterExperience(CvForm $cvForm, $titre, $nomsociete, $dateDeDebut, $DateDeFin, $Description)
-    {
-        $Experience = new Experience();
-        $Experience->setTitre($titre);
-        $Experience->setNomDeSociete($nomsociete);
-        $Experience->setDateDebut($dateDeDebut);
-        $Experience->setDateFin($DateDeFin);
-        $Experience->setDescription($Description);
-        $Experience->setCvForm($cvForm);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($Experience);
-        $manager->flush();
-    }
-
-    private function ajouterCompetence(CvForm $cvForm, $titre, $valuer)
-    {
-        $Competence = new Competences();
-        $Competence->setTitreDeCompetence($titre);
-        $Competence->setValeurPorcentage($valuer);
-        $Competence->setCvForm($cvForm);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($Competence);
-        $manager->flush();
-    }
-
-    private function ajouterLangue(cvForm $cvForm, $langue, $niveau)
-    {
-        $Langue = new Langue();
-        $Langue->setLangue($langue);
-        $Langue->setNiveau($niveau);
-        $Langue->setCvForm($cvForm);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($Langue);
-        $manager->flush();
-    }
-
-    private function ajouterFormation(CvForm $cvForm, $formation, $Etablissement, $dateDeDebut, $DateDeFin, $Description)
-    {
-        $Formation = new Formations();
-        $Formation->setFormation($formation);
-        $Formation->setEtablissement($Etablissement);
-        $Formation->setDateDebut($dateDeDebut);
-        $Formation->setDateFin($DateDeFin);
-        $Formation->setDescirption($Description);
-        $Formation->setCvForm($cvForm);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($Formation);
-        $manager->flush();
     }
 }

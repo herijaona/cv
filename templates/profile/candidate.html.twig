@@ -21,7 +21,7 @@
 					<div class="dashboard-avatar">
 
 						<div class="dashboard-avatar-thumb">
-							<img src="{% if  Candidate.Avatar  != null %}{{ vich_uploader_asset(Candidate, 'imageFile') }}{% else %}{{ asset('assets/img/Utilisateur.svg') }}{% endif %}"
+							<img src="{% if Candidate.Avatar != null %}{{ vich_uploader_asset(Candidate, 'imageFile') }}{% else %}{{ asset('assets/img/Utilisateur.svg') }}{% endif %}"
 								class="img-avater" alt="" />
 						</div>
 
@@ -52,7 +52,7 @@
 							</li>
 							<li class="SvgEmploye">
 								<a href="#">
-									<i class="ti-heart"></i>Savegader un employe</a>
+									<i class="ti-heart"></i>employe Poster</a>
 							</li>
 							<li class="AlertEmploye">
 								<a href="#">
@@ -78,11 +78,11 @@
 
 							<!-- Overview -->
 							<div class="row">
-								<div class="col-lg-3 col-md-6 col-sm-12">
+								<div class="col-lg-4 col-md-6 col-sm-12">
 									<div class="dashboard-stat widget-1">
 										<div class="dashboard-stat-content">
 											<h4>210</h4>
-											<span>Job Applied</span>
+											<span>Job Poster</span>
 										</div>
 										<div class="dashboard-stat-icon">
 											<i class="ti-location-pin"></i>
@@ -90,19 +90,7 @@
 									</div>
 								</div>
 
-								<div class="col-lg-3 col-md-6 col-sm-12">
-									<div class="dashboard-stat widget-2">
-										<div class="dashboard-stat-content">
-											<h4>80</h4>
-											<span>Job Alert</span>
-										</div>
-										<div class="dashboard-stat-icon">
-											<i class="ti-bell"></i>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-lg-3 col-md-6 col-sm-12">
+								<div class="col-lg-4 col-md-6 col-sm-12">
 									<div class="dashboard-stat widget-3">
 										<div class="dashboard-stat-content">
 											<h4>712</h4>
@@ -114,7 +102,7 @@
 									</div>
 								</div>
 
-								<div class="col-lg-3 col-md-6 col-sm-12">
+								<div class="col-lg-4 col-md-6 col-sm-12">
 									<div class="dashboard-stat widget-4">
 										<div class="dashboard-stat-content">
 											<h4>107</h4>
@@ -438,236 +426,190 @@
 						</div>
 
 						<div class="dashboard-caption-wrap">
+							<div class="row">
 
-							{{ form_start(CvForm) }}
+								<div class="col-lg-8 col-md-8">
 
-							{{ form_end(CvForm) }}
+									<div class="row-bottom">
+										<h2 class="detail-title">A propos de la candidat</h2>
+										<p>{{ Candidate.Apropos}}
+										</p>
 
-							{#
-							<form action="" method="post" id="cvform">
-								<!-- Row Experience -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<h4>Experience Professionnelle</h4>
-										</div>
 									</div>
-								</div>
-								<!-- row -->
-								<div class="row">
-									<div class="expcontent">
-										<div class="expform">
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="exptitre">Titre</label>
-													<input type="text" name="exptitre" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="societe">Societe</label>
-													<input type="text" name="expsociete" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datedebut">Date De debut</label>
-													<input type="date" name="expdatedebut" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datefin">Date de fin</label>
-													<input type="date" name="expdatefin" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12">
-												<label for="expDescription">Description</label>
-												<textarea class="form-control height-140"
-													name="expDescription"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<button class="btn btn-primary" id="exp">+ Ajouter</button>
-										<button class="btn btn-danger" id="delexp">- supprimer</button>
-									</div>
-								</div>
-								<!-- Row Educations -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<h4>Educations Professionnelle</h4>
-										</div>
-									</div>
-								</div>
-								<!-- row -->
-								<div class="row">
-									<div class="etudecontent">
-										<div class="etudeform">
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="titre">Titre</label>
-													<input type="text" name="titre" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="societe">Ecole</label>
-													<input type="text" name="societe" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datedebut">Date De debut</label>
-													<input type="date" name="datedebut" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datefin">Date de fin</label>
-													<input type="date" name="datefin" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12">
-												<label>Diplôme Obtenus</label>
-												<textarea class="form-control height-140"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<button class="btn btn-primary" id="Etude">+ Ajouter</button>
-										<button class="btn btn-danger" id="delEtude">- supprimer</button>
-									</div>
-								</div>
 
-								<!-- Row Formations -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<h4>Formations</h4>
+									<div class="row-bottom">
+										<h2 class="detail-title">Experiences Professionnelle</h2>
+										<ul class="trim-edu-list">
+											{% for Experience in Experiencelist %}
+											<li>
+												<div class="trim-edu">
+													<h4 class="trim-edu-title">{{ Experience.Titre}}<span
+															class="title-est">{{ Experience.DateDebut|date('d/m/Y') }} -
+															{{
+															Experience.DateFin|date('d/m/Y') }}</span></h4>
+													<strong>{{ Experience.NomDeSociete }}</strong>
+													<p> {{ Experience.Description }}</p>
+												</div>
+											</li>
+											{% endfor %}
+
+										</ul>
+										<button href="javascript:void(0)" data-toggle="modal" data-target="#experiences"
+											class="btn btn-primary">Ajouter Experiences</button>
+									</div>
+
+									<div class="row-bottom">
+										<h2 class="detail-title">Education</h2>
+										<ul class="trim-edu-list">
+											{% for Education in Educationlist %}
+											<li>
+												<div class="trim-edu">
+													<h4 class="trim-edu-title">{{ Education.titre}}<span
+															class="title-est">{{ Education.DateDeDebut|date('d/m/Y') }}
+															- {{ Education.DateDeFin|date('d/m/Y') }}</span></h4>
+													<strong>{{ Education.NomEcole}}</strong>
+													<p>{{ Education.Description}}</p>
+												</div>
+											</li>
+											{% endfor %}
+
+										</ul>
+										<button href="javascript:void(0)" data-toggle="modal" data-target="#Educations"
+											class="btn btn-primary">Ajouter Education</button>
+									</div>
+
+									<div class="row-bottom">
+										<h2 class="detail-title">Formation</h2>
+										<ul class="trim-edu-list">
+
+											{% for Formation in Formationlist %}
+											<li>
+												<div class="trim-edu">
+													<h4 class="trim-edu-title">{{ Formation.formation}}<span
+															class="title-est">{{ Formation.DateDebut|date('d/m/Y') }}
+															- {{ Formation.DateFin|date('d/m/Y') }}</span></h4>
+													<strong>{{ Formation.Etablissement}}</strong>
+													<p>{{ Formation.Descirption}}</p>
+												</div>
+											</li>
+											{% endfor %}
+
+
+										</ul>
+										<button href="javascript:void(0)" data-toggle="modal" data-target="#Formations"
+											class="btn btn-primary">Ajouter Formation</button>
+									</div>
+
+									<div class="row-bottom">
+										<h2 class="detail-title">Langues</h2>
+										<ul class="trim-edu-list">
+
+											{% for Langue in languelist %}
+											<li>
+												<div class="trim-edu">
+													<strong>{{ Langue.Langue}}</strong>
+													<p>{{ Langue.Niveau}}</p>
+												</div>
+											</li>
+											{% endfor %}
+
+
+										</ul>
+										<button href="javascript:void(0)" data-toggle="modal" data-target="#Langues"
+											class="btn btn-primary">Ajouter Langue</button>
+									</div>
+
+									<div class="row-bottom">
+										<h2 class="detail-title">Competences</h2>
+										<div class="ext-mrg row third-progress">
+											{% for Comptence in Comptencelist %}
+											<div class="col-md-6 col-sm-6">
+												<div class="panel-body">
+													<h3 class="progressbar-title">{{ Comptence.TitreDeCompetence }}</h3>
+													<div class="progress">
+														<div class="progress-bar"
+															style="width: {{ Comptence.ValeurPorcentage }}%; background: #26a9e1;">
+															<span class="progress-icon fa fa-plus"
+																style="border-color:#26a9e1; color:#26a9e1;"></span>
+															<div class="progress-value">{{ Comptence.ValeurPorcentage
+																}}%</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											{% endfor %}
+
+											<button href="javascript:void(0)" data-toggle="modal"
+												data-target="#Comptences" class="btn btn-primary">Ajouter
+												Competences</button>
+
 										</div>
 									</div>
-								</div>
-								<!-- row -->
-								<div class="row">
-									<div class="formationcontent">
-										<div class="formationform">
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="titre">Titre</label>
-													<input type="text" name="titre" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="societe">Etablissement</label>
-													<input type="text" name="societe" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datedebut">Date De debut</label>
-													<input type="date" name="datedebut" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-3 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="datefin">Date de fin</label>
-													<input type="date" name="datefin" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12">
-												<label>Certificat Obtenu</label>
-												<textarea class="form-control height-140"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<button class="btn btn-primary" id="formation">+ Ajouter</button>
-										<button class="btn btn-danger" id="delform">- supprimer</button>
-									</div>
-								</div>
-								<!-- Row Competences -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<h4>Comptences</h4>
-										</div>
-									</div>
-								</div>
-								<!-- row -->
-								<div class="row">
-									<div class="competenceContent">
-										<div class="competenceform">
-											<div class="col-lg-6 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="titre">Comptences</label>
-													<input type="text" name="titre" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-6 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="societe">Valeur en pourcentage</label>
-													<input type="range" name="societe" class="form-control">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<button class="btn btn-primary" id="comptences">+ Ajouter</button>
-										<button class="btn btn-danger" id="delcompt">- supprimer</button>
-									</div>
+
 								</div>
 
-								<!-- Row Langues -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<h4>Langues</h4>
-										</div>
-									</div>
-								</div>
-								<!-- row -->
-								<div class="row">
-									<div class="langueContent">
-										<div class="langueform">
-											<div class="col-lg-6 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="titre">Langues</label>
-													<input type="text" name="titre" class="form-control">
+								<div class="col-lg-4 col-md-4">
+									<div class="full-sidebar-wrap">
+
+										<!-- Candidate overview -->
+										<div class="sidebar-widgets">
+
+											<div class="ur-detail-wrap">
+												<div class="ur-detail-wrap-header">
+													<h4>Candidate Overview</h4>
+												</div>
+												<div class="ur-detail-wrap-body">
+													<ul class="ove-detail-list">
+
+														<li>
+															<i class="ti-wallet"></i>
+															<h5>Offerd Salary</h5>
+															<span>£15,000 - £20,000</span>
+														</li>
+
+														<li>
+															<i class="ti-user"></i>
+															<h5>Gender</h5>
+															<span>Male</span>
+														</li>
+
+														<li>
+															<i class="ti-ink-pen"></i>
+															<h5>Career Level</h5>
+															<span>Excutive</span>
+														</li>
+
+														<li>
+															<i class="ti-home"></i>
+															<h5>Industry</h5>
+															<span>Management</span>
+														</li>
+
+														<li>
+															<i class="ti-shield"></i>
+															<h5>Experience</h5>
+															<span>5 Years</span>
+														</li>
+
+														<li>
+															<i class="ti-book"></i>
+															<h5>Qualification</h5>
+															<span>Master Degree</span>
+														</li>
+
+													</ul>
 												</div>
 											</div>
-											<div class="col-lg-6 col-md-4 col-sm-12">
-												<div class="form-group">
-													<label for="niveau">Niveau</label>
-													<select name="niveau" id="niveau" class="form-control">
-														<option value="Notion">Notion</option>
-														<option value="Intermediaire">Intermediaire</option>
-														<option value="Excelent">Excelent</option>
-														<option value="Expert">Expert</option>
-													</select>
-												</div>
-											</div>
+
 										</div>
-									</div>
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<button class="btn btn-primary" id="langue">+ Ajouter</button>
-										<button class="btn btn-danger" id="dellang">- supprimer</button>
+										<!-- /Candidate overview -->
+
 									</div>
 								</div>
-								<!-- row -->
-								<div class="row mrg-top-30">
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group text-center">
-											<button type="submit" class="btn-savepreview"><i
-													class="ti-angle-double-right"></i>Sauvegarder Mon Curriculum
-												Vitae</button>
-										</div>
-									</div>
-								</div>
-							</form>
-							#}
+
+							</div>
+
+
 						</div>
 					</div>
 				</div>
@@ -1266,6 +1208,241 @@
 		</div>
 </section>
 <!-- General Detail End -->
+<!-- Modal Experiences -->
+<div class="modal fade" id="experiences" tabindex="-1" role="dialog" aria-labelledby="Experiences" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="new-logwrap">
+					<div class="row">
+						{{ form_start(Expform) }}
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Expform.Titre) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Expform.NomDeSociete) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Expform.DateDebut) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Expform.DateFin) }}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Expform.Description) }}
+							</div>
+						</div>
+						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
+							<button type="submit" class="btn btn-primary theme-bg full-width">Enregistre</button>
+						</div>
+						{{ form_end(Expform) }}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fin Modal Experiences -->
+<!-- Modal Educations -->
+<div class="modal fade" id="Educations" tabindex="-1" role="dialog" aria-labelledby="Educations" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="new-logwrap">
+					<div class="row">
+
+						{{ form_start(Educationform) }}
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Educationform.titre) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Educationform.NomEcole) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Educationform.DateDeDebut) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Educationform.DateDeFin) }}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Educationform.Description) }}
+							</div>
+						</div>
+						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
+							<button type="submit" class="btn btn-primary theme-bg full-width">Enregistre</button>
+						</div>
+						{{ form_end(Educationform) }}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fin Modal Educations -->
+<!-- Modal Formations -->
+<div class="modal fade" id="Formations" tabindex="-1" role="dialog" aria-labelledby="Formations" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="new-logwrap">
+					<div class="row">
+
+						{{ form_start(Formationform) }}
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Formationform.Formation) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Formationform.Etablissement) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12">
+							<div class="form-group">
+								{{ form_row(Formationform.DateDebut) }}
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Formationform.DateFin) }}
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(Formationform.Descirption) }}
+							</div>
+						</div>
+						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
+							<button type="submit" class="btn btn-primary theme-bg full-width">Enregistre</button>
+						</div>
+						{{ form_end(Formationform) }}
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fin Modal Formations -->
+<!-- Modal Langue -->
+<div class="modal fade" id="Langues" tabindex="-1" role="dialog" aria-labelledby="Langues" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="new-logwrap">
+					<div class="row">
+
+						{{ form_start(LangueForm) }}
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+								{{ form_row(LangueForm.Langue) }}
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(LangueForm.Niveau) }}
+							</div>
+						</div>
+						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
+							<button type="submit" class="btn btn-primary theme-bg full-width">Enregistre</button>
+						</div>
+						{{ form_end(LangueForm) }}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fin Modal Langues -->
+<!-- Modal Competences -->
+<div class="modal fade" id="Comptences" tabindex="-1" role="dialog" aria-labelledby="Comptences" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="new-logwrap">
+					<div class="row">
+
+						{{ form_start(CompetencesForm) }}
+						<div class="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+								{{ form_row(CompetencesForm.TitreDeCompetence) }}
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 30px !important;">
+							<div class="form-group">
+								{{ form_row(CompetencesForm.ValeurPorcentage) }}
+							</div>
+						</div>
+						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
+							<button type="submit" class="btn btn-primary theme-bg full-width">Enregistre</button>
+						</div>
+						{{ form_end(CompetencesForm) }}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Fin Modal Comptences -->
 {% include "Partials/footer.html.twig" %}
 
 {% endblock %}
