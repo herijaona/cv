@@ -81,7 +81,6 @@ class Employer
      */
     private $Utilisateur;
 
-
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -91,8 +90,6 @@ class Employer
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $UpdatedAt;
-
-
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -105,16 +102,15 @@ class Employer
     private $Poste;
 
     /**
-     * @ORM\OneToMany(targetEntity=Societe::class, mappedBy="Employeur")
+     * @ORM\OneToMany(targetEntity=Societe::class, mappedBy="employer")
      */
-    private $societes;
+    private $Societe;
 
 
     public function __construct()
     {
         $this->Job = new ArrayCollection();
         $this->Societe = new ArrayCollection();
-        $this->societes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,16 +336,16 @@ class Employer
     /**
      * @return Collection|Societe[]
      */
-    public function getSocietes(): Collection
+    public function getSociete(): Collection
     {
-        return $this->societes;
+        return $this->Societe;
     }
 
     public function addSociete(Societe $societe): self
     {
-        if (!$this->societes->contains($societe)) {
-            $this->societes[] = $societe;
-            $societe->setEmployeur($this);
+        if (!$this->Societe->contains($societe)) {
+            $this->Societe[] = $societe;
+            $societe->setEmployer($this);
         }
 
         return $this;
@@ -357,10 +353,10 @@ class Employer
 
     public function removeSociete(Societe $societe): self
     {
-        if ($this->societes->removeElement($societe)) {
+        if ($this->Societe->removeElement($societe)) {
             // set the owning side to null (unless already changed)
-            if ($societe->getEmployeur() === $this) {
-                $societe->setEmployeur(null);
+            if ($societe->getEmployer() === $this) {
+                $societe->setEmployer(null);
             }
         }
 

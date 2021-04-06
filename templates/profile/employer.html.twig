@@ -51,14 +51,7 @@
 									<a href="#">
 										<i class="ti-user"></i>Mon Societe</a>
 								</li>
-								<li class="Packages">
-									<a href="#">
-										<i class="ti-wallet"></i>Packages</a>
-								</li>
-								<li class="ChoiPackages">
-									<a href="#">
-										<i class="ti-cup"></i>Choose Packages</a>
-								</li>
+
 								<li class="Resumer">
 									<a href="#">
 										<i class="ti-flag-alt-2"></i>Voire les Resumer</a>
@@ -89,11 +82,11 @@
 
 								<!-- Overview -->
 								<div class="row">
-									<div class="col-lg-3 col-md-6 col-sm-12">
+									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard-stat widget-1">
 											<div class="dashboard-stat-content">
-												<h4>210</h4>
-												<span>Job Applied</span>
+												<h4>{{ Joblist | length }}</h4>
+												<span>Job Publier</span>
 											</div>
 											<div class="dashboard-stat-icon">
 												<i class="ti-location-pin"></i>
@@ -101,19 +94,7 @@
 										</div>
 									</div>
 
-									<div class="col-lg-3 col-md-6 col-sm-12">
-										<div class="dashboard-stat widget-2">
-											<div class="dashboard-stat-content">
-												<h4>80</h4>
-												<span>Job Alert</span>
-											</div>
-											<div class="dashboard-stat-icon">
-												<i class="ti-bell"></i>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3 col-md-6 col-sm-12">
+									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard-stat widget-3">
 											<div class="dashboard-stat-content">
 												<h4>712</h4>
@@ -125,7 +106,7 @@
 										</div>
 									</div>
 
-									<div class="col-lg-3 col-md-6 col-sm-12">
+									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard-stat widget-4">
 											<div class="dashboard-stat-content">
 												<h4>107</h4>
@@ -458,7 +439,7 @@
 
 								<ul class="list">
 
-									{% for Job in Jobs %}
+									{% for Job in Joblist %}
 										<li class="manage-list-row clearfix">
 											<div class="job-info premium-job">
 												<div class="job-img">
@@ -545,14 +526,29 @@
 								<div class="row mrg-top-30">
 									<div class="col-lg-6 col-md-6 col-sm-12">
 										<div class="form-group">
+											{{ form_row(SocieteForm.imageFile) }}
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
 											{{ form_row(SocieteForm.nom) }}
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											{{ form_row(SocieteForm.siteweb) }}
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											{{ form_row(SocieteForm.adresse) }}
 										</div>
 									</div>
 									<div class="col-md-12 col-sm-12">
 										<div class="form-group text-center">
 											<button type="submit" class="btn-savepreview">
 												<i class="ti-angle-double-right"></i>Mettre a jour et Changes
-																																																																																																																																																																																																																																																																																																																																																																																																	Vitae</button>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				Vitae</button>
 										</div>
 									</div>
 
@@ -567,191 +563,6 @@
 					</div>
 				</div>
 
-				<!-- Content Wrap -->
-				<div class="col-lg-9 col-md-8" id="Packages">
-					<div class="dashboard-body">
-						<div class="dashboard-caption">
-
-							<div class="dashboard-caption-header">
-								<h4>
-									<i class="ti-wallet"></i>Packages
-								</h4>
-							</div>
-
-							<div class="dashboard-caption-wrap">
-
-								<a href="choose-package.html" class="btn-savepreview small-btn mrg-bot-30">
-									<i class="ti-angle-double-right"></i>New Package</a>
-
-								<div class="table-responsive">
-									<table class="table">
-										<thead>
-											<tr>
-												<th scope="col">Order</th>
-												<th scope="col">Package</th>
-												<th scope="col">Jobs Remaining</th>
-												<th scope="col">Renew Remaining</th>
-												<th scope="col">Job Duration</th>
-												<th scope="col">Status</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">
-													<a href="#">#1742</a>
-												</th>
-												<td>Premium</td>
-												<td>54</td>
-												<td>21</td>
-												<td>20 Days</td>
-												<td>
-													<span data-toggle="tooltip" class="publish" title="" data-original-title="Active">
-														<i class="ti-check-box"></i>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													<a href="#">#1743</a>
-												</th>
-												<td>Free</td>
-												<td>02</td>
-												<td>10</td>
-												<td>10 Days</td>
-												<td>
-													<span data-toggle="tooltip" class="publish" title="" data-original-title="Active">
-														<i class="ti-check-box"></i>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													<a href="#">#1744</a>
-												</th>
-												<td>Premium</td>
-												<td>65</td>
-												<td>0</td>
-												<td>20 Days</td>
-												<td>
-													<span data-toggle="tooltip" class="unpublish" title="" data-original-title="Inactive">
-														<i class="ti-close"></i>
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													<a href="#">#1745</a>
-												</th>
-												<td>Advance</td>
-												<td>44</td>
-												<td>07</td>
-												<td>30 Days</td>
-												<td>
-													<span data-toggle="tooltip" class="publish" title="" data-original-title="Active">
-														<i class="ti-check-box"></i>
-													</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-
-				<!-- Content Wrap -->
-				<div class="col-lg-9 col-md-8" id="ChoisePackages">
-					<div class="dashboard-body">
-						<div class="dashboard-caption">
-
-							<div class="dashboard-caption-header">
-								<h4>
-									<i class="ti-wallet"></i>Packages
-								</h4>
-							</div>
-
-							<div class="dashboard-caption-wrap">
-								<div class="table-responsive">
-									<table class="table table-responsive">
-										<thead>
-											<tr>
-												<th scope="col">Select</th>
-												<th scope="col">Title</th>
-												<th scope="col">Price</th>
-												<th scope="col">Jobs</th>
-												<th scope="col">Feature Jobs</th>
-												<th scope="col">Duration</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">
-													<label class="custom-radio">
-														<input type="radio" checked="checked" name="package">
-														<span class="checkmark"></span>
-													</label>
-												</th>
-												<td>Free</td>
-												<td>$00</td>
-												<td>10</td>
-												<td>0</td>
-												<td>10 Days</td>
-											</tr>
-
-											<tr>
-												<th scope="row">
-													<label class="custom-radio">
-														<input type="radio" checked="checked" name="package">
-														<span class="checkmark"></span>
-													</label>
-												</th>
-												<td>Basic</td>
-												<td>$49</td>
-												<td>30</td>
-												<td>5</td>
-												<td>15 Days</td>
-											</tr>
-
-											<tr>
-												<th scope="row">
-													<label class="custom-radio">
-														<input type="radio" checked="checked" name="package">
-														<span class="checkmark"></span>
-													</label>
-												</th>
-												<td>Premium</td>
-												<td>$99</td>
-												<td>49</td>
-												<td>10</td>
-												<td>20 Days</td>
-											</tr>
-
-											<tr>
-												<th scope="row">
-													<label class="custom-radio">
-														<input type="radio" checked="checked" name="package">
-														<span class="checkmark"></span>
-													</label>
-												</th>
-												<td>Advance</td>
-												<td>$199</td>
-												<td>100</td>
-												<td>20</td>
-												<td>30 Days</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<button type="submit" class="btn-savepreview">
-									<i class="ti-angle-double-right"></i>Continue</button>
-
-							</div>
-
-						</div>
-					</div>
-				</div>
 
 				<!-- Content Wrap -->
 				<div class="col-lg-9 col-md-8" id="Resume">
@@ -1113,7 +924,7 @@
 											<div class="form-group text-center">
 												<button type="submit" class="btn-savepreview">
 													<i class="ti-angle-double-right"></i>Mettre a jour et Changes
-																																																																																																																																																																																																																																																																																																																																																																																																						Vitae</button>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								Vitae</button>
 											</div>
 										</div>
 									</div>
@@ -1127,6 +938,7 @@
 			</div>
 		</section>
 		<!-- General Detail End -->
+
 		{% include "Partials/footer.html.twig" %}
 
 	{% endblock %}

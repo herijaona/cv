@@ -24,6 +24,7 @@ class JobController extends AbstractController
         $Employes = $paginator->paginate($données, $request->query->getInt('page', 1), 4);
 
 
+
         return $this->render('Jobs/joblists.html.twig', [
             'Employes' => $Employes
         ]);
@@ -40,7 +41,7 @@ class JobController extends AbstractController
         dd($Job);
 
         //Pérmet de recuprer la societe qui publier le Jobs
-        $Societe = $societeRepo->findBy(['Employeur' => $user]);
+        //$Societe = $societeRepo->findBy(['Employeur' => $user]);
 
 
 

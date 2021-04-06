@@ -76,6 +76,11 @@ class ProfileController extends AbstractController
 
         $employer = $employerRepo->findOneBy(['Utilisateur' => $user]);
 
+        //Pérmet d'avoir la liste de job publier
+        $jobliste = $jobRepo->findBy(['employer' => $employer]);
+
+
+
         //Déclare un nouveal job
         $Job = new Job();
 
@@ -97,23 +102,28 @@ class ProfileController extends AbstractController
             $employer->setUpdatedAt(new \DateTime());
             $entityManager->flush();
         }
-        //Pérmet d'avoir les job crée par l'employeur
-        $Jobs = $jobRepo->findBy(['employer' => $employer->getId()]);
+
+
 
         //Déclare un nouveau societe
         $societe = new Societe();
+
+
+
 
         //Pérmet d'affiche formulaire de societe
         $societeForm = $this->createForm(SocieteType::class, $societe);
         $societeForm->handleRequest($request);
         if ($societeForm->isSubmitted() && $societeForm->isValid()) {
             $societe->setEmployer($employer);
+            $entityManager->persist($societe);
+            $entityManager->flush();
         }
         return $this->render('profile/employer.html.twig', [
             'Employer' => $employer,
             'JobForms' => $JobForm->createView(),
             'ProfileEmployeur' => $ProfileForm->createView(),
-            'Jobs' => $Jobs,
+            "Joblist" => $jobliste,
             'SocieteForm' => $societeForm->createView()
         ]);
     }
