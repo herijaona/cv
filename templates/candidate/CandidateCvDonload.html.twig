@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "candidate/base-pdf.html.twig" %}
 {% block title %}
 	Curriculum Vitae
 {% endblock %}
@@ -6,14 +6,6 @@
 	<div class="Loader"></div>
 	<div
 		class="wrapper">
-		<!-- Title Header Start -->
-		<section class="inner-header-title" style="background-image:url({{ asset('assets/img/banner-10.jpg') }});">
-			<div class="container">
-				<h1>Candidate Detail</h1>
-			</div>
-		</section>
-		<div class="clearfix"></div>
-		<!-- Title Header End -->
 		<!-- Candidate Detail Start -->
 		<section class="detail-desc">
 			<div class="container">
@@ -23,14 +15,15 @@
 					<div class="ur-detail-box">
 
 						<div class="ur-thumb">
-							<img src="{{ asset('assets/img/can-2.png') }}" class="img-responsive" alt=""/>
+							<img src="{{ asset('images/candidats/'~ candidate.Avatar) }}" class="img-responsive" alt="Avatar"/>
 						</div>
 						<div class="ur-caption">
-							<h4 class="ur-title">prenom nom</h4>
+							<h4 class="ur-title">{{ candidate.prenom}}
+								{{ candidate.nom}}</h4>
 							<p class="ur-location">
 								<i class="ti-location-pin mrg-r-5"></i>
-								adresse</p>
-							<span class="ur-designation">poste</span>
+								{{ candidate.adresse}}</p>
+							<span class="ur-designation">{{ candidate.poste}}</span>
 							<div class="rateing">
 								<i class="fa fa-star filled"></i>
 								<i class="fa fa-star filled"></i>
@@ -53,38 +46,31 @@
 				<div class="row">
 
 					<div
-						class="col-lg-8 col-md-8">
+						class="col-lg-12 col-md-12">
 
 						<!-- Apropos-->
 						<div class="row-bottom">
 							<h2 class="detail-title">A propos de la Candidat</h2>
-							//Apropos
+							{{ candidate.Apropos }}
 						</div>
 						<!--Fin e APropos-->
 
 						<!--Education-->
 						<div class="row-bottom">
 							<h2 class="detail-title">Education</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 							<ul class="trim-edu-list">
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Virallia University<span class="title-est">2010 - 2012</span>
-										</h4>
-										<strong>Masters In Fine Arts</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Virallia University<span class="title-est">2010 - 2012</span>
-										</h4>
-										<strong>Masters In Fine Arts</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
+								{% for Education in Educations %}
+									<li>
+										<div class="trim-edu">
+											<h4 class="trim-edu-title">{{ Education.titre }}<span class="title-est">{{ Education.DateDeDebut |date('d/m/Y') }}
+													-
+													{{ Education.DateDeFin |date('d/m/Y') }}</span>
+											</h4>
+											<strong>{{ Education.NomEcole }}</strong>
+											<p>{{ Education.Description }}</p>
+										</div>
+									</li>
+								{% endfor %}
 
 							</ul>
 						</div>
@@ -94,201 +80,474 @@
 						<div class="row-bottom">
 							<h2 class="detail-title">Travail & Experience</h2>
 							<ul class="trim-edu-list">
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Innvovation Tech<span class="title-est">2013 - 2014</span>
-										</h4>
-										<strong>Web Designer</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Livar Studio<span class="title-est">2014 - 2016</span>
-										</h4>
-										<strong>Graphic Designer</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
-
+								{% for Experience in Experiences %}
+									<li>
+										<div class="trim-edu">
+											<h4 class="trim-edu-title">{{ Experience.Titre }}<span class="title-est">{{ Experience.DateDebut|date('d/m/Y') }}
+													-
+													{{ Experience.DateFin|date('d/m/Y') }}</span>
+											</h4>
+											<strong>{{ Experience.NomDeSociete }}</strong>
+											<p>{{ Experience.Description }}</p>
+										</div>
+									</li>
+								{% endfor %}
 							</ul>
 						</div>
 						<!--Fin de Experiences-->
 
 						<!--Formations-->
 						<div class="row-bottom">
-							<h2 class="detail-title">Formation</h2>
+							<h2 class="detail-title">Formations</h2>
 							<ul class="trim-edu-list">
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Innvovation Tech<span class="title-est">2013 - 2014</span>
-										</h4>
-										<strong>Web Designer</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
-
-								<li>
-									<div class="trim-edu">
-										<h4 class="trim-edu-title">Livar Studio<span class="title-est">2014 - 2016</span>
-										</h4>
-										<strong>Graphic Designer</strong>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</li>
+								{% for Formation in Formations %}
+									<li>
+										<div class="trim-edu">
+											<h4 class="trim-edu-title">{{ Formation.Formation }}<span class="title-est">{{ Formation.DateDebut |date("d/m/Y") }}
+													-
+													{{ Formation.DateFin |date("d/m/Y") }}</span>
+											</h4>
+											<strong>{{ Formation.Etablissement }}</strong>
+											<p>{{ Formation.Descirption }}</p>
+										</div>
+									</li>
+								{% endfor %}
 
 							</ul>
 						</div>
 						<!--Fin de Formations-->
 
+						<!--Langues-->
+						<div class="row-bottom">
+							<h2 class="detail-title">Langues</h2>
+							<ul class="trim-edu-list">
+								{% for Langue in Langues %}
+									<li>
+										<div class="trim-edu">
+											<h4 class="trim-edu-title">{{ Langue.Langue }}</h4>
+											<strong>{{ Langue.Niveau }}</strong>
+
+										</div>
+									</li>
+								{% endfor %}
+
+							</ul>
+						</div>
+						<!--Fin de Langues-->
+
 						<!--Competences-->
 						<div class="row-bottom">
 							<h2 class="detail-title">Competences</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 							<div class="ext-mrg row third-progress">
 								<div class="col-md-6 col-sm-6">
 									<div class="panel-body">
-										<h3 class="progressbar-title">Apps Development</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 90%; background: #26a9e1;">
-												<span class="progress-icon fa fa-plus" style="border-color:#26a9e1; color:#26a9e1;"></span>
-												<div class="progress-value">90%</div>
+										{% for Comptence in Competences %}
+											<h3 class="progressbar-title">{{ Comptence.TitreDeCompetence }}</h3>
+											<div class="progress">
+												<div class="progress-bar" style="width: {{ Comptence.ValeurPorcentage }}%; background: #26a9e1;">
+													<span class="progress-icon fa fa-plus" style="border-color:#26a9e1; color:#26a9e1;"></span>
+													<div class="progress-value">{{ Comptence.ValeurPorcentage }}%</div>
+												</div>
 											</div>
-										</div>
-
-										<h3 class="progressbar-title">iPhone Development</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 80%; background: #f6931e;">
-												<span class="progress-icon fa fa-plus" style="border-color:#f6931e; color:#f6931e;"></span>
-												<div class="progress-value">80%</div>
-											</div>
-										</div>
-
-										<h3 class="progressbar-title">Digital Marketing</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 65%; background: #8bc43f;">
-												<span class="progress-icon fa fa-plus" style="border-color:#8bc43f; color:#8bc43f;"></span>
-												<div class="progress-value">52%</div>
-											</div>
-										</div>
-
-										<h3 class="progressbar-title">SEO/SMO</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 52%; background: #d20001;">
-												<span class="progress-icon fa fa-plus" style="border-color:#d20001; color:#d20001;"></span>
-												<div class="progress-value">52%</div>
-											</div>
-										</div>
+										{% endfor %}
 
 									</div>
 								</div>
 
-								<div class="col-sm-6 col-sm-6">
-									<div class="panel-body">
-										<h3 class="progressbar-title">Apps Development</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 90%; background: #26a9e1;">
-												<span class="progress-icon fa fa-plus" style="border-color:#26a9e1; color:#26a9e1;"></span>
-												<div class="progress-value">90%</div>
-											</div>
-										</div>
-
-										<h3 class="progressbar-title">iPhone Development</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 80%; background: #f6931e;">
-												<span class="progress-icon fa fa-plus" style="border-color:#f6931e; color:#f6931e;"></span>
-												<div class="progress-value">80%</div>
-											</div>
-										</div>
-
-										<h3 class="progressbar-title">Digital Marketing</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 65%; background: #8bc43f;">
-												<span class="progress-icon fa fa-plus" style="border-color:#8bc43f; color:#8bc43f;"></span>
-												<div class="progress-value">52%</div>
-											</div>
-										</div>
-
-										<h3 class="progressbar-title">SEO/SMO</h3>
-										<div class="progress">
-											<div class="progress-bar" style="width: 52%; background: #d20001;">
-												<span class="progress-icon fa fa-plus" style="border-color:#d20001; color:#d20001;"></span>
-												<div class="progress-value">52%</div>
-											</div>
-										</div>
-
-									</div>
-								</div>
 							</div>
 						</div>
 						<!--Fin de Competences-->
 
 					</div>
 
-					<div class="col-lg-4 col-md-4">
-						<div
-							class="full-sidebar-wrap">
-
-							<!-- Candidate overview -->
-							<div class="sidebar-widgets">
-
-								<div class="ur-detail-wrap">
-									<div class="ur-detail-wrap-header">
-										<h4>Candidate Overview</h4>
-									</div>
-									<div class="ur-detail-wrap-body">
-										<ul class="ove-detail-list">
-
-											<li>
-												<i class="ti-wallet"></i>
-												<h5>Salaire estimer</h5>
-												<span>£15,000 - £20,000</span>
-											</li>
-
-											<li>
-												<i class="ti-user"></i>
-												<h5>Sexe</h5>
-												<span>sexe</span>
-											</li>
-
-											<li>
-												<i class="ti-ink-pen"></i>
-												<h5>Career Level</h5>
-												<span>Excutive</span>
-											</li>
-
-											<li>
-												<i class="ti-home"></i>
-												<h5>Societe</h5>
-												<span>Management</span>
-											</li>
-
-											<li>
-												<i class="ti-shield"></i>
-												<h5>Experience</h5>
-												<span>5 Years</span>
-											</li>
-
-											<li>
-												<i class="ti-book"></i>
-												<h5>Qualification</h5>
-												<span>Master Degree</span>
-											</li>
-
-										</ul>
-									</div>
-								</div>
-
-							</div>
-							<!-- /Candidate overview -->
-
-						</div>
-					</div>
 
 				</div>
 			</div>
 		</section>
+		<!-- company full detail End -->
+		<style>
+			/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+			html,
+			body,
+			div,
+			span,
+			applet,
+			object,
+			iframe,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p,
+			blockquote,
+			pre,
+			a,
+			abbr,
+			acronym,
+			address,
+			big,
+			cite,
+			code,
+			del,
+			dfn,
+			em,
+			img,
+			ins,
+			kbd,
+			q,
+			s,
+			samp,
+			small,
+			strike,
+			strong,
+			sub,
+			sup,
+			tt,
+			var,
+			b,
+			u,
+			i,
+			center,
+			dl,
+			dt,
+			dd,
+			ol,
+			ul,
+			li,
+			fieldset,
+			form,
+			label,
+			legend,
+			table,
+			caption,
+			tbody,
+			tfoot,
+			thead,
+			tr,
+			th,
+			td,
+			article,
+			aside,
+			canvas,
+			details,
+			embed,
+			figure,
+			figcaption,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			output,
+			ruby,
+			section,
+			summary,
+			time,
+			mark,
+			audio,
+			video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article,
+			aside,
+			details,
+			figcaption,
+			figure,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol,
+			ul {
+				list-style: none;
+			}
+			blockquote,
+			q {
+				quotes: none;
+			}
+			blockquote:before,
+			blockquote:after,
+			q:before,
+			q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			/**
+*** SIMPLE GRID
+*** (C) ZACH COLE 2016
+**/
+
+			@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
+
+			/* UNIVERSAL */
+
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				left: 0;
+				top: 0;
+				font-size: 100%;
+			}
+
+			/* ROOT FONT STYLES */
+
+			* {
+				font-family: 'Lato', Helvetica, sans-serif;
+				color: #333447;
+				line-height: 1.5;
+			}
+
+			/* TYPOGRAPHY */
+
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h2 {
+				font-size: 2rem;
+			}
+
+			h3 {
+				font-size: 1.375rem;
+			}
+
+			h4 {
+				font-size: 1.125rem;
+			}
+
+			h5 {
+				font-size: 1rem;
+			}
+
+			h6 {
+				font-size: 0.875rem;
+			}
+
+			p {
+				font-size: 1.125rem;
+				font-weight: 200;
+				line-height: 1.8;
+			}
+
+			.font-light {
+				font-weight: 300;
+			}
+
+			.font-regular {
+				font-weight: 400;
+			}
+
+			.font-heavy {
+				font-weight: 700;
+			}
+
+			/* POSITIONING */
+
+			.left {
+				text-align: left;
+			}
+
+			.right {
+				text-align: right;
+			}
+
+			.center {
+				text-align: center;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.justify {
+				text-align: justify;
+			}
+
+			/* ==== GRID SYSTEM ==== */
+
+			.container {
+				width: 90%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.row {
+				position: relative;
+				width: 100%;
+			}
+
+			.row [class^="col"] {
+				float: left;
+				margin: 0.5rem 2%;
+				min-height: 0.125rem;
+			}
+
+			.col-1,
+			.col-2,
+			.col-3,
+			.col-4,
+			.col-5,
+			.col-6,
+			.col-7,
+			.col-8,
+			.col-9,
+			.col-10,
+			.col-11,
+			.col-12 {
+				width: 96%;
+			}
+
+			.col-1-sm {
+				width: 4.33%;
+			}
+
+			.col-2-sm {
+				width: 12.66%;
+			}
+
+			.col-3-sm {
+				width: 21%;
+			}
+
+			.col-4-sm {
+				width: 29.33%;
+			}
+
+			.col-5-sm {
+				width: 37.66%;
+			}
+
+			.col-6-sm {
+				width: 46%;
+			}
+
+			.col-7-sm {
+				width: 54.33%;
+			}
+
+			.col-8-sm {
+				width: 62.66%;
+			}
+
+			.col-9-sm {
+				width: 71%;
+			}
+
+			.col-10-sm {
+				width: 79.33%;
+			}
+
+			.col-11-sm {
+				width: 87.66%;
+			}
+
+			.col-12-sm {
+				width: 96%;
+			}
+
+			.row::after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+
+			.hidden-sm {
+				display: none;
+			}
+
+			@media only screen and(min-width: 33.75em) {
+				/* 540px */
+				.container {
+					width: 80%;
+				}
+			}
+
+			@media only screen and(min-width: 45em) {
+				/* 720px */
+				.col-1 {
+					width: 4.33%;
+				}
+
+				.col-2 {
+					width: 12.66%;
+				}
+
+				.col-3 {
+					width: 21%;
+				}
+
+				.col-4 {
+					width: 29.33%;
+				}
+
+				.col-5 {
+					width: 37.66%;
+				}
+
+				.col-6 {
+					width: 46%;
+				}
+
+				.col-7 {
+					width: 54.33%;
+				}
+
+				.col-8 {
+					width: 62.66%;
+				}
+
+				.col-9 {
+					width: 71%;
+				}
+
+				.col-10 {
+					width: 79.33%;
+				}
+
+				.col-11 {
+					width: 87.66%;
+				}
+
+				.col-12 {
+					width: 96%;
+				}
+
+				.hidden-sm {
+					display: block;
+				}
+			}
+
+			@media only screen and(min-width: 60em) {
+				/* 960px */
+				.container {
+					width: 75%;
+					max-width: 60rem;
+				}
+			}
+
+		</style>
 	{% endblock %}

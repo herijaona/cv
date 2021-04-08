@@ -80,10 +80,24 @@ class CandidateController extends AbstractController
         ]);
     }
     /**
-     * @Route("/Candidate/Data/Cv", name="candidate_telecharger_Cv")
+     * @Route("/Candidate/Data/Cv/{id}", name="candidate_telecharger_Cv")
      */
-    public function DataCvDonwload()
+    public function DataCvDonwload($id, CandidateRepository $candidateRepo, ExperienceRepository $experienceRepository, EducationsRepository $educationsRepository, FormationsRepository $formationsRepository, LangueRepository $langueRepository, CompetencesRepository $competencesRepository)
     {
+        $candidate = $candidateRepo->find($id);
+        //dd($candidate->getCvForm());
+
+        //Pérmet de cherche la Experience
+        $Experiences = $experienceRepository->findBy(['cvForm' => $candidate->getCvForm()]);
+        //Pérmet de cherche l'Etuducations
+        $Educations = $educationsRepository->findBy(['cvForm' => $candidate->getCvForm()]);
+        //Pérmet d'avoir la Formations
+        $Formations = $formationsRepository->findBy(['cvForm' => $candidate->getCvForm()]);
+        //Pérmet d'avoir la Langues
+        $Langues = $langueRepository->findBy(['cvForm' => $candidate->getCvForm()]);
+        //Pérmet d'avoir la Comptences
+        $Competences = $competencesRepository->findBy(['cvForm' => $candidate->getCvForm()]);
+
         //On définit les options du PDF
         $pdfOptions = new Options();
         //Choisir un police par défaut       
@@ -100,7 +114,14 @@ class CandidateController extends AbstractController
         ]);
         $dompdf->setHttpContext($context);
         //On genere les HTML
-        $html = $this->renderView('candidate/CandidateCvDonload.html.twig');
+        $html = $this->renderView('candidate/CandidateCvDonload.html.twig', [
+            "candidate" => $candidate,
+            'Experiences' => $Experiences,
+            'Educations' => $Educations,
+            'Formations' => $Formations,
+            'Langues' => $Langues,
+            'Competences' => $Competences,
+        ]);
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', "portrait");

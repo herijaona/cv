@@ -38,7 +38,7 @@ class JobController extends AbstractController
         //Pérmet de recuperer le Job grace a son identifiants
         $Job = $jobRepo->find($id);
 
-        dd($Job);
+
 
         //Pérmet de recuprer la societe qui publier le Jobs
         //$Societe = $societeRepo->findBy(['Employeur' => $user]);
