@@ -1,553 +1,396 @@
 {% extends "candidate/base-pdf.html.twig" %}
 {% block title %}
-	Curriculum Vitae
+	Curriculum Vitae de
+	{{ candidate.nom }}
+	{{ candidate.prenom }}
 {% endblock %}
 {% block body %}
-	<div class="Loader"></div>
-	<div
-		class="wrapper">
-		<!-- Candidate Detail Start -->
-		<section class="detail-desc">
-			<div class="container">
 
-				<div class="ur-detail-wrap top-lay">
-
-					<div class="ur-detail-box">
-
-						<div class="ur-thumb">
-							<img src="{{ asset('images/candidats/'~ candidate.Avatar) }}" class="img-responsive" alt="Avatar"/>
-						</div>
-						<div class="ur-caption">
-							<h4 class="ur-title">{{ candidate.prenom}}
-								{{ candidate.nom}}</h4>
-							<p class="ur-location">
-								<i class="ti-location-pin mrg-r-5"></i>
-								{{ candidate.adresse}}</p>
-							<span class="ur-designation">{{ candidate.poste}}</span>
-							<div class="rateing">
-								<i class="fa fa-star filled"></i>
-								<i class="fa fa-star filled"></i>
-								<i class="fa fa-star filled"></i>
-								<i class="fa fa-star filled"></i>
-								<i class="fa fa-star"></i>
-							</div>
-						</div>
-
-					</div>
-
-				</div>
-
+	<div class="container">
+		<div
+			class="row">
+			<!--Information supplementaire candidat-->
+			<div class="col-9">
+				<h2>{{candidate.prenom}}
+					{{candidate.nom}}</h2>
+				<h3 class="poste">{{candidate.Poste}}</h3>
+				<p>{{candidate.Apropos}}</p>
 			</div>
-		</section>
-		<!-- Candidate Detail End -->
-		<!-- Candidate full detail Start -->
-		<section class="full-detail-description full-detail">
-			<div class="container">
-				<div class="row">
-
-					<div
-						class="col-lg-12 col-md-12">
-
-						<!-- Apropos-->
-						<div class="row-bottom">
-							<h2 class="detail-title">A propos de la Candidat</h2>
-							{{ candidate.Apropos }}
-						</div>
-						<!--Fin e APropos-->
-
-						<!--Education-->
-						<div class="row-bottom">
-							<h2 class="detail-title">Education</h2>
-							<ul class="trim-edu-list">
-								{% for Education in Educations %}
-									<li>
-										<div class="trim-edu">
-											<h4 class="trim-edu-title">{{ Education.titre }}<span class="title-est">{{ Education.DateDeDebut |date('d/m/Y') }}
-													-
-													{{ Education.DateDeFin |date('d/m/Y') }}</span>
-											</h4>
-											<strong>{{ Education.NomEcole }}</strong>
-											<p>{{ Education.Description }}</p>
-										</div>
-									</li>
-								{% endfor %}
-
-							</ul>
-						</div>
-						<!--Fin de Education-->
-
-						<!--Experience-->
-						<div class="row-bottom">
-							<h2 class="detail-title">Travail & Experience</h2>
-							<ul class="trim-edu-list">
-								{% for Experience in Experiences %}
-									<li>
-										<div class="trim-edu">
-											<h4 class="trim-edu-title">{{ Experience.Titre }}<span class="title-est">{{ Experience.DateDebut|date('d/m/Y') }}
-													-
-													{{ Experience.DateFin|date('d/m/Y') }}</span>
-											</h4>
-											<strong>{{ Experience.NomDeSociete }}</strong>
-											<p>{{ Experience.Description }}</p>
-										</div>
-									</li>
-								{% endfor %}
-							</ul>
-						</div>
-						<!--Fin de Experiences-->
-
-						<!--Formations-->
-						<div class="row-bottom">
-							<h2 class="detail-title">Formations</h2>
-							<ul class="trim-edu-list">
-								{% for Formation in Formations %}
-									<li>
-										<div class="trim-edu">
-											<h4 class="trim-edu-title">{{ Formation.Formation }}<span class="title-est">{{ Formation.DateDebut |date("d/m/Y") }}
-													-
-													{{ Formation.DateFin |date("d/m/Y") }}</span>
-											</h4>
-											<strong>{{ Formation.Etablissement }}</strong>
-											<p>{{ Formation.Descirption }}</p>
-										</div>
-									</li>
-								{% endfor %}
-
-							</ul>
-						</div>
-						<!--Fin de Formations-->
-
-						<!--Langues-->
-						<div class="row-bottom">
-							<h2 class="detail-title">Langues</h2>
-							<ul class="trim-edu-list">
-								{% for Langue in Langues %}
-									<li>
-										<div class="trim-edu">
-											<h4 class="trim-edu-title">{{ Langue.Langue }}</h4>
-											<strong>{{ Langue.Niveau }}</strong>
-
-										</div>
-									</li>
-								{% endfor %}
-
-							</ul>
-						</div>
-						<!--Fin de Langues-->
-
-						<!--Competences-->
-						<div class="row-bottom">
-							<h2 class="detail-title">Competences</h2>
-							<div class="ext-mrg row third-progress">
-								<div class="col-md-6 col-sm-6">
-									<div class="panel-body">
-										{% for Comptence in Competences %}
-											<h3 class="progressbar-title">{{ Comptence.TitreDeCompetence }}</h3>
-											<div class="progress">
-												<div class="progress-bar" style="width: {{ Comptence.ValeurPorcentage }}%; background: #26a9e1;">
-													<span class="progress-icon fa fa-plus" style="border-color:#26a9e1; color:#26a9e1;"></span>
-													<div class="progress-value">{{ Comptence.ValeurPorcentage }}%</div>
-												</div>
-											</div>
-										{% endfor %}
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<!--Fin de Competences-->
-
-					</div>
-
-
-				</div>
+			<!--Image de la candidate-->
+			<div class="col-3">
+				<img src="{{ app.request.getSchemeAndHttpHost() }}/images/candidats/{{ candidate.Avatar }}" alt="avatar" width="130px" height="150px">
 			</div>
-		</section>
-		<!-- company full detail End -->
-		<style>
-			/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-			html,
-			body,
-			div,
-			span,
-			applet,
-			object,
-			iframe,
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6,
-			p,
-			blockquote,
-			pre,
-			a,
-			abbr,
-			acronym,
-			address,
-			big,
-			cite,
-			code,
-			del,
-			dfn,
-			em,
-			img,
-			ins,
-			kbd,
-			q,
-			s,
-			samp,
-			small,
-			strike,
-			strong,
-			sub,
-			sup,
-			tt,
-			var,
-			b,
-			u,
-			i,
-			center,
-			dl,
-			dt,
-			dd,
-			ol,
-			ul,
-			li,
-			fieldset,
-			form,
-			label,
-			legend,
-			table,
-			caption,
-			tbody,
-			tfoot,
-			thead,
-			tr,
-			th,
-			td,
-			article,
-			aside,
-			canvas,
-			details,
-			embed,
-			figure,
-			figcaption,
-			footer,
-			header,
-			hgroup,
-			menu,
-			nav,
-			output,
-			ruby,
-			section,
-			summary,
-			time,
-			mark,
-			audio,
-			video {
-				margin: 0;
-				padding: 0;
-				border: 0;
-				font-size: 100%;
-				font: inherit;
-				vertical-align: baseline;
-			}
-			/* HTML5 display-role reset for older browsers */
-			article,
-			aside,
-			details,
-			figcaption,
-			figure,
-			footer,
-			header,
-			hgroup,
-			menu,
-			nav,
-			section {
-				display: block;
-			}
-			body {
-				line-height: 1;
-			}
-			ol,
-			ul {
-				list-style: none;
-			}
-			blockquote,
-			q {
-				quotes: none;
-			}
-			blockquote:before,
-			blockquote:after,
-			q:before,
-			q:after {
-				content: '';
-				content: none;
-			}
-			table {
-				border-collapse: collapse;
-				border-spacing: 0;
-			}
-			/**
+			<!--Fin Image de la candidate-->
+			<!--Information supplementaire candidat-->
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus illum voluptate porro blanditiis repudiandae, laborum officia sapiente esse itaque qui.</p>
+			</div>
+		</div>
+	</div>
+	<style>
+		* http:// meyerweb.com/eric/tools/css/reset/v2.0 | 20110126 License:none(public domain) */ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,
+		ins,
+		kbd,
+		q,
+		s,
+		samp,
+		small,
+		strike,
+		strong,
+		sub,
+		sup,
+		tt,
+		var,
+		b,
+		u,
+		i,
+		center,
+		dl,
+		dt,
+		dd,
+		ol,
+		ul,
+		li,
+		fieldset,
+		form,
+		label,
+		legend,
+		table,
+		caption,
+		tbody,
+		tfoot,
+		thead,
+		tr,
+		th,
+		td,
+		article,
+		aside,
+		canvas,
+		details,
+		embed,
+		figure,
+		figcaption,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		output,
+		ruby,
+		section,
+		summary,
+		time,
+		mark,
+		audio,
+		video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		/* HTML5 display-role reset for older browsers */
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		section {
+			display: block;
+		}
+		body {
+			line-height: 1;
+		}
+		ol,
+		ul {
+			list-style: none;
+		}
+		blockquote,
+		q {
+			quotes: none;
+		}
+		blockquote:before,
+		blockquote:after,
+		q:before,
+		q:after {
+			content: '';
+			content: none;
+		}
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+		/**
 *** SIMPLE GRID
 *** (C) ZACH COLE 2016
 **/
 
-			@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
+		@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
-			/* UNIVERSAL */
+		/* UNIVERSAL */
 
-			html,
-			body {
-				height: 100%;
-				width: 100%;
-				margin: 0;
-				padding: 0;
-				left: 0;
-				top: 0;
-				font-size: 100%;
-			}
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			left: 0;
+			top: 0;
+			font-size: 100%;
+		}
 
-			/* ROOT FONT STYLES */
+		/* ROOT FONT STYLES */
 
-			* {
-				font-family: 'Lato', Helvetica, sans-serif;
-				color: #333447;
-				line-height: 1.5;
-			}
+		* {
+			font-family: 'Lato', Helvetica, sans-serif;
+			color: #333447;
+			line-height: 1.5;
+		}
 
-			/* TYPOGRAPHY */
+		/* TYPOGRAPHY */
 
-			h1 {
-				font-size: 2.5rem;
-			}
+		h1 {
+			font-size: 2.5rem;
+		}
 
-			h2 {
-				font-size: 2rem;
-			}
+		h2 {
+			font-size: 2rem;
+		}
 
-			h3 {
-				font-size: 1.375rem;
-			}
+		h3 {
+			font-size: 1.375rem;
+		}
 
-			h4 {
-				font-size: 1.125rem;
-			}
+		h4 {
+			font-size: 1.125rem;
+		}
 
-			h5 {
-				font-size: 1rem;
-			}
+		h5 {
+			font-size: 1rem;
+		}
 
-			h6 {
-				font-size: 0.875rem;
-			}
+		h6 {
+			font-size: 0.875rem;
+		}
 
-			p {
-				font-size: 1.125rem;
-				font-weight: 200;
-				line-height: 1.8;
-			}
+		p {
+			font-size: 1.125rem;
+			font-weight: 200;
+			line-height: 1.8;
+		}
 
-			.font-light {
-				font-weight: 300;
-			}
+		.font-light {
+			font-weight: 300;
+		}
 
-			.font-regular {
-				font-weight: 400;
-			}
+		.font-regular {
+			font-weight: 400;
+		}
 
-			.font-heavy {
-				font-weight: 700;
-			}
+		.font-heavy {
+			font-weight: 700;
+		}
 
-			/* POSITIONING */
+		/* POSITIONING */
 
-			.left {
-				text-align: left;
-			}
+		.left {
+			text-align: left;
+		}
 
-			.right {
-				text-align: right;
-			}
+		.right {
+			text-align: right;
+		}
 
-			.center {
-				text-align: center;
-				margin-left: auto;
-				margin-right: auto;
-			}
+		.center {
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-			.justify {
-				text-align: justify;
-			}
+		.justify {
+			text-align: justify;
+		}
 
-			/* ==== GRID SYSTEM ==== */
+		/* ==== GRID SYSTEM ==== */
 
+		.container {
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.row {
+			position: relative;
+			width: 100%;
+		}
+
+		.row [class^="col"] {
+			float: left;
+			margin: 0.5rem 2%;
+			min-height: 0.125rem;
+		}
+
+		.col-1,
+		.col-2,
+		.col-3,
+		.col-4,
+		.col-5,
+		.col-6,
+		.col-7,
+		.col-8,
+		.col-9,
+		.col-10,
+		.col-11,
+		.col-12 {
+			width: 96%;
+		}
+
+		.col-1-sm {
+			width: 4.33%;
+		}
+
+		.col-2-sm {
+			width: 12.66%;
+		}
+
+		.col-3-sm {
+			width: 21%;
+		}
+
+		.col-4-sm {
+			width: 29.33%;
+		}
+
+		.col-5-sm {
+			width: 37.66%;
+		}
+
+		.col-6-sm {
+			width: 46%;
+		}
+
+		.col-7-sm {
+			width: 54.33%;
+		}
+
+		.col-8-sm {
+			width: 62.66%;
+		}
+
+		.col-9-sm {
+			width: 71%;
+		}
+
+		.col-10-sm {
+			width: 79.33%;
+		}
+
+		.col-11-sm {
+			width: 87.66%;
+		}
+
+		.col-12-sm {
+			width: 96%;
+		}
+
+		.row::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.hidden-sm {
+			display: none;
+		}
+
+		@media only screen and(min-width: 33.75em) {
+			/* 540px */
 			.container {
-				width: 90%;
-				margin-left: auto;
-				margin-right: auto;
+				width: 80%;
+			}
+		}
+
+		@media only screen and(min-width: 45em) {
+			/* 720px */
+			.col-1 {
+				width: 4.33%;
 			}
 
-			.row {
-				position: relative;
-				width: 100%;
+			.col-2 {
+				width: 12.66%;
 			}
 
-			.row [class^="col"] {
-				float: left;
-				margin: 0.5rem 2%;
-				min-height: 0.125rem;
+			.col-3 {
+				width: 21%;
 			}
 
-			.col-1,
-			.col-2,
-			.col-3,
-			.col-4,
-			.col-5,
-			.col-6,
-			.col-7,
-			.col-8,
-			.col-9,
-			.col-10,
-			.col-11,
+			.col-4 {
+				width: 29.33%;
+			}
+
+			.col-5 {
+				width: 37.66%;
+			}
+
+			.col-6 {
+				width: 46%;
+			}
+
+			.col-7 {
+				width: 54.33%;
+			}
+
+			.col-8 {
+				width: 62.66%;
+			}
+
+			.col-9 {
+				width: 71%;
+			}
+
+			.col-10 {
+				width: 79.33%;
+			}
+
+			.col-11 {
+				width: 87.66%;
+			}
+
 			.col-12 {
 				width: 96%;
 			}
 
-			.col-1-sm {
-				width: 4.33%;
-			}
-
-			.col-2-sm {
-				width: 12.66%;
-			}
-
-			.col-3-sm {
-				width: 21%;
-			}
-
-			.col-4-sm {
-				width: 29.33%;
-			}
-
-			.col-5-sm {
-				width: 37.66%;
-			}
-
-			.col-6-sm {
-				width: 46%;
-			}
-
-			.col-7-sm {
-				width: 54.33%;
-			}
-
-			.col-8-sm {
-				width: 62.66%;
-			}
-
-			.col-9-sm {
-				width: 71%;
-			}
-
-			.col-10-sm {
-				width: 79.33%;
-			}
-
-			.col-11-sm {
-				width: 87.66%;
-			}
-
-			.col-12-sm {
-				width: 96%;
-			}
-
-			.row::after {
-				content: "";
-				display: table;
-				clear: both;
-			}
-
 			.hidden-sm {
-				display: none;
+				display: block;
 			}
+		}
 
-			@media only screen and(min-width: 33.75em) {
-				/* 540px */
-				.container {
-					width: 80%;
-				}
+		@media only screen and(min-width: 60em) {
+			/* 960px */
+			.container {
+				width: 75%;
+				max-width: 60rem;
 			}
-
-			@media only screen and(min-width: 45em) {
-				/* 720px */
-				.col-1 {
-					width: 4.33%;
-				}
-
-				.col-2 {
-					width: 12.66%;
-				}
-
-				.col-3 {
-					width: 21%;
-				}
-
-				.col-4 {
-					width: 29.33%;
-				}
-
-				.col-5 {
-					width: 37.66%;
-				}
-
-				.col-6 {
-					width: 46%;
-				}
-
-				.col-7 {
-					width: 54.33%;
-				}
-
-				.col-8 {
-					width: 62.66%;
-				}
-
-				.col-9 {
-					width: 71%;
-				}
-
-				.col-10 {
-					width: 79.33%;
-				}
-
-				.col-11 {
-					width: 87.66%;
-				}
-
-				.col-12 {
-					width: 96%;
-				}
-
-				.hidden-sm {
-					display: block;
-				}
-			}
-
-			@media only screen and(min-width: 60em) {
-				/* 960px */
-				.container {
-					width: 75%;
-					max-width: 60rem;
-				}
-			}
-
-		</style>
-	{% endblock %}
+		}
+		.poste {
+			color: green;
+			margin: 0;
+			padding: 0;
+		}
+		p {
+			font-weight: Light;
+			font-family: roboto;
+			font-size: 12px;
+			color: black;
+		}
+	</style>
+{% endblock %}

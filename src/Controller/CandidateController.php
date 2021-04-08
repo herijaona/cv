@@ -128,7 +128,7 @@ class CandidateController extends AbstractController
         $dompdf->render();
 
         //On genere un Nom de Fiche
-        $ficher = 'Candidate-Cv.pdf';
+        $ficher = 'CV_' . $candidate->getNom() . ' ' . $candidate->getPrenom() . '.pdf';
 
         //On envoie les pdf au navigateur
         $dompdf->stream($ficher, [

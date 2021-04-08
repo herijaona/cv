@@ -35,11 +35,10 @@
 					<div class="col-md-4 col-sm-6">
 						<div class="top-candidate-wrap style-2">
 							<div class="top-candidate-box">
-								<span class="tpc-status">Available</span>
-								<h4 class="flc-rate">$17/hr</h4>
+								<span class="tpc-status">Disponible</span>
 								<div class="tp-candidate-inner-box">
 									<div class="top-candidate-box-thumb">
-										<img src="assets/img/can-5.jpg" class="img-responsive img-circle" alt=""/>
+										<img src="{{ asset('images/candidats/'~ CandidateSenior.Avatar) }}" class="img-responsive img-circle" alt=""/>
 									</div>
 									<div class="top-candidate-box-detail">
 										<h4>{{CandidateSenior.nom}}
@@ -337,7 +336,5 @@
 		</div>
 	</section>
 	<!-- End Candidate Section -->
-
-
 	{% include "Partials/footer.html.twig" %}
 {% endblock %}
