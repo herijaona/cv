@@ -38,15 +38,12 @@ class JobController extends AbstractController
         //Pérmet de recuperer le Job grace a son identifiants
         $Job = $jobRepo->find($id);
 
-
-
-        //Pérmet de recuprer la societe qui publier le Jobs
-        //$Societe = $societeRepo->findBy(['Employeur' => $user]);
-
-
+        //Pérmet de trouver la societe qui publier les jobs
+        $societe = $societeRepo->findBy(["employer" => $Job->getEmployer()]);
 
         return $this->render('Jobs/jobdetail.html.twig', [
             'Job' => $Job,
+            "Societe" => $societe[0]
         ]);
     }
 }

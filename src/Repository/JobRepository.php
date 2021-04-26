@@ -19,6 +19,18 @@ class JobRepository extends ServiceEntityRepository
         parent::__construct($registry, Job::class);
     }
 
+    /**
+     * @return Job[] Returns an array of Job objects
+     */
+
+    public function findByCreateAt()
+    {
+        return $this->createQueryBuilder('j')
+            ->orderBy('j.CreatedAt', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Job[] Returns an array of Job objects

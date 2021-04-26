@@ -6,14 +6,9 @@ use DateTime;
 use App\Entity\Job;
 use App\Form\JobType;
 use App\Entity\CvForm;
-use App\Entity\Langue;
 use App\Entity\Societe;
 use App\Form\LangueType;
 use App\Form\SocieteType;
-use App\Entity\Educations;
-use App\Entity\Experience;
-use App\Entity\Formations;
-use App\Entity\Competences;
 use App\Form\EducationType;
 use App\Form\CompetenceType;
 use App\Form\ExperienceType;
@@ -23,13 +18,14 @@ use App\Form\CandidateModifType;
 use App\Repository\JobRepository;
 use App\Repository\CvFormRepository;
 use App\Repository\LangueRepository;
+use App\Repository\SocieteRepository;
 use App\Repository\EmployerRepository;
 use App\Repository\CandidateRepository;
-use App\Repository\CompetencesRepository;
 use App\Repository\EducationsRepository;
 use App\Repository\ExperienceRepository;
 use App\Repository\FormationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CompetencesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -155,29 +151,38 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/Employer", name="Employeur_profile")
      */
-    public function Employer(EmployerRepository $employerRepo, Request $request, EntityManagerInterface $entityManager, JobRepository $jobRepo): Response
+    public function Employer(EmployerRepository $employerRepo, Request $request, EntityManagerInterface $entityManager, JobRepository $jobRepo, SocieteRepository $societeRepository): Response
     {
         $user = $this->getUser();
 
         $employer = $employerRepo->findOneBy(['Utilisateur' => $user]);
 
+        //Pérmet de Trouves la societe de l'employeur
+        $societe = $societeRepository->findOneBy(['employer' => $employer]);
+
+
         //Pérmet d'avoir la liste de job publier
         $jobliste = $jobRepo->findBy(['employer' => $employer]);
 
 
-
-        //Déclare un nouveal job
-        $Job = new Job();
-
         //Pérmet d'affiche un formulaire job 
-        $JobForm = $this->createForm(JobType::class, $Job);
+        $JobForm = $this->createForm(JobType::class);
         $JobForm->handleRequest($request);
         if ($JobForm->isSubmitted() &&  $JobForm->isValid()) {
+            $data = $JobForm->getData();
+            //Declare une nouvell job 
+            $Job = new Job();
+            $Job->setTitre($data["titre"]);
+            $Job->setDateExpiration($data["DateExpiration"]);
+            $Job->setDescription($data["Description"]);
+            $Job->setCategory($data["Category"]);
+            $Job->setType($data["Contrat"]);
+            $Job->setNiveau($data["Niveau"]);
             $Job->setEmployer($employer);
             $Job->setCreatedAt(new \DateTime());
+            $Job->setImageFile($data["imageFile"]);
             $entityManager->persist($Job);
             $entityManager->flush();
-
             return $this->redirectToRoute('job_detail', ["id" => $Job->getId()]);
         }
 

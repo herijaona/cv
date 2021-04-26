@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,20 +21,20 @@ class JobType extends AbstractType
                 'required' => false,
                 'label' => "Avatar"
             ])
-            ->add('Titre', TextType::class, [
+            ->add('titre', TextType::class, [
                 "attr" => [
                     "placeholder" => "Veuillez entre votre Titre",
                     "class" => "form-control"
                 ]
             ])
-            ->add('Description', TextareaType::class, [
+            ->add('DateExpiration', DateType::class, [
+                'widget' => 'single_text',
                 "attr" => [
                     "placeholder" => "Veuillez entre votre Description",
                     "class" => "form-control"
                 ]
             ])
-            ->add('DateExpiration', DateType::class, [
-                'widget' => 'single_text',
+            ->add('Description', TextareaType::class, [
                 "attr" => [
                     "placeholder" => "Veuillez entre votre Description",
                     "class" => "form-control"
@@ -81,7 +80,7 @@ class JobType extends AbstractType
                     "Tourisme / Voyage" => "Tourisme / Voyage",
                 ],
             ])
-            ->add('Type', ChoiceType::class, [
+            ->add('Contrat', ChoiceType::class, [
                 "label" => "Contrat de Travail",
                 "attr" => [
                     "class" => "form-control"

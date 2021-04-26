@@ -45,10 +45,6 @@ class Job
      */
     private $Niveau;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Employer::class, inversedBy="Job")
-     */
-    private $employer;
 
     /**
      * @ORM\Column(type="date")
@@ -75,6 +71,12 @@ class Job
      * @ORM\Column(type="datetime")
      */
     private $CreatedAt;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Employer::class, inversedBy="Jobs")
+     */
+    private $employer;
 
 
     public function getId(): ?int
@@ -138,18 +140,6 @@ class Job
     public function setNiveau(string $Niveau): self
     {
         $this->Niveau = $Niveau;
-
-        return $this;
-    }
-
-    public function getEmployer(): ?Employer
-    {
-        return $this->employer;
-    }
-
-    public function setEmployer(?Employer $employer): self
-    {
-        $this->employer = $employer;
 
         return $this;
     }
@@ -226,6 +216,18 @@ class Job
         if ($this->imageFile instanceof UploadedFile) {
             $this->UpdateAt = new \DateTime('now');
         }
+
+        return $this;
+    }
+
+    public function getEmployer(): ?Employer
+    {
+        return $this->employer;
+    }
+
+    public function setEmployer(?Employer $employer): self
+    {
+        $this->employer = $employer;
 
         return $this;
     }

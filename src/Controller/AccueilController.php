@@ -20,21 +20,14 @@ class AccueilController extends AbstractController
         //Pérmet de trouver les Candidate Niveau Sénior
         $CandidateSenior = $candidateRepository->findBy(['Niveau' => 'Senior']);
 
+
         //Pérmet de trouver les job grace a sa date de créations
-        /*
-        $Maintenant = new \DateTimeImmutable();
-        $date = $Maintenant->modify('-1 month');
-
-        $interval = date_diff($Maintenant, $date);
-        $tableau = [$Maintenant, $date];
-        //$JobAjours = $jobRepository->findBy(['CreatedAt' => $tableau]);
-        //dd($JobAjours);
-        */
-
+        $JobAjours = $jobRepository->findByCreateAt();
 
 
         return $this->render('accueil/accueil.html.twig', [
-            'CandidateSeniors' => $CandidateSenior
+            'CandidateSeniors' => $CandidateSenior,
+            'JobAjours' => $JobAjours
         ]);
     }
 }

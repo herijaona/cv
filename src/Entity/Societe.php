@@ -64,6 +64,7 @@ class Societe
     private $employer;
 
 
+
     public function getId(): ?int
     {
         return $this->id;

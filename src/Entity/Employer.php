@@ -55,10 +55,6 @@ class Employer
      */
     private $Adresse;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="employer")
-     */
-    private $Job;
 
     /**
      * Undocumented variable
@@ -106,11 +102,16 @@ class Employer
      */
     private $Societe;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="employer")
+     */
+    private $Jobs;
+
 
     public function __construct()
     {
-        $this->Job = new ArrayCollection();
         $this->Societe = new ArrayCollection();
+        $this->Jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,36 +187,6 @@ class Employer
     public function setAdresse(string $Adresse): self
     {
         $this->Adresse = $Adresse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Job[]
-     */
-    public function getJob(): Collection
-    {
-        return $this->Job;
-    }
-
-    public function addJob(Job $job): self
-    {
-        if (!$this->Job->contains($job)) {
-            $this->Job[] = $job;
-            $job->setEmployer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeJob(Job $job): self
-    {
-        if ($this->Job->removeElement($job)) {
-            // set the owning side to null (unless already changed)
-            if ($job->getEmployer() === $this) {
-                $job->setEmployer(null);
-            }
-        }
 
         return $this;
     }
@@ -357,6 +328,36 @@ class Employer
             // set the owning side to null (unless already changed)
             if ($societe->getEmployer() === $this) {
                 $societe->setEmployer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getJobs(): Collection
+    {
+        return $this->Jobs;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->Jobs->contains($job)) {
+            $this->Jobs[] = $job;
+            $job->setEmployer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->Jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getEmployer() === $this) {
+                $job->setEmployer(null);
             }
         }
 

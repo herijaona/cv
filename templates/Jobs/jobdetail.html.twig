@@ -14,16 +14,16 @@
 				<div class="col-md-12">
 					<div class="left-side-container">
 						<div class="freelance-image">
-							<a href="company-detail.html"><img src="{{ asset('assets/img/com-2.jpg') }}" class="img-responsive" alt=""></a>
+							<a href="company-detail.html"><img src="{{ asset('images/societe/' ~ Societe.Logo ) }}" class="img-responsive" alt="logo"></a>
 						</div>
 						<div class="header-details">
 							<h4>{{ Job.Titre }}</h4>
-							<p>//NomSociete</p>
+							<p>{{ Societe.nom }}</p>
 							<ul>
 								<li>
 									<a href="single-company-profile.html">
 										<i class="fa fa-user"></i>
-										7 Vacancy</a>
+										7 Candidat poster</a>
 								</li>
 								<li>
 									<div class="star-rating" data-rating="4.2">
@@ -36,9 +36,6 @@
 								</li>
 								<li><img class="flag" src="assets/img/gb.svg" alt="">
 									{{Job.employer.Adresse}}</li>
-								<li>
-									<div class="verified-action">Verified</div>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -61,48 +58,19 @@
 							<a href="company-detail.html" class="cl-success">
 								<span>
 									<i class="fa fa-building"></i>
-									//NomSociete</span>
+									{{ Societe.nom }}
+								</span>
 							</a>
 							<span>
 								<i class="fa fa-map-marker"></i>
 								{{Job.employer.Adresse}}</span>
 						</div>
+						<div class="apply-job-detail">
+							<img src="{{ asset('images/job/' ~ Job.Image) }}" alt="jobimages">
+						</div>
 
 						<div class="apply-job-detail">
 							<p>{{Job.Description}}</p>
-						</div>
-
-						<div class="apply-job-detail">
-							<h5>Competences</h5>
-							<ul class="skills">
-								<li>Css3</li>
-								<li>Html5</li>
-								<li>Photoshop</li>
-								<li>Wordpress</li>
-								<li>PHP</li>
-								<li>Java Script</li>
-							</ul>
-						</div>
-
-						<div class="apply-job-detail">
-							<h5>Requirements</h5>
-							<ul class="job-requirements">
-								<li>
-									<span>Availability</span>
-									Hourly</li>
-								<li>
-									<span>Education</span>
-									Graduate</li>
-								<li>
-									<span>Age</span>
-									25+</li>
-								<li>
-									<span>Experience</span>
-									Intermidiate (3 - 5Year)</li>
-								<li>
-									<span>Language</span>
-									English, Hindi</li>
-							</ul>
 						</div>
 
 
@@ -188,7 +156,7 @@
 		</section>
 		<!-- Job Detail End -->
 		<pre>
-			{{ dump(Job.employer) }}
+			{{ dump(Job) }}
 		</pre>
 		{% include "Partials/footer.html.twig" %}
 	{% endblock %}
