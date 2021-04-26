@@ -39,7 +39,7 @@ class JobController extends AbstractController
         $Job = $jobRepo->find($id);
 
         //Pérmet de trouver la societe qui publier les jobs
-        $societe = $societeRepo->findBy(["employer" => $Job->getEmployer()]);
+        $societe = $societeRepo->findBy(["Employeur" => $Job->getEmployer()]);
 
         return $this->render('Jobs/jobdetail.html.twig', [
             'Job' => $Job,

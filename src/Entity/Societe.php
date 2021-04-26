@@ -59,9 +59,9 @@ class Societe
     private $SiteWeb;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Employer::class, inversedBy="Societe")
+     * @ORM\OneToOne(targetEntity=Employer::class, inversedBy="societe", cascade={"persist", "remove"})
      */
-    private $employer;
+    private $Employeur;
 
 
 
@@ -178,14 +178,14 @@ class Societe
         return $this;
     }
 
-    public function getEmployer(): ?Employer
+    public function getEmployeur(): ?Employer
     {
-        return $this->employer;
+        return $this->Employeur;
     }
 
-    public function setEmployer(?Employer $employer): self
+    public function setEmployeur(?Employer $Employeur): self
     {
-        $this->employer = $employer;
+        $this->Employeur = $Employeur;
 
         return $this;
     }

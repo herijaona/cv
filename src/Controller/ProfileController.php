@@ -158,7 +158,7 @@ class ProfileController extends AbstractController
         $employer = $employerRepo->findOneBy(['Utilisateur' => $user]);
 
         //Pérmet de Trouves la societe de l'employeur
-        $societe = $societeRepository->findOneBy(['employer' => $employer]);
+        $societe = $societeRepository->findOneBy(['Employeur' => $employer]);
 
 
         //Pérmet d'avoir la liste de job publier
@@ -201,7 +201,7 @@ class ProfileController extends AbstractController
         $societeForm = $this->createForm(SocieteType::class, $societe);
         $societeForm->handleRequest($request);
         if ($societeForm->isSubmitted() && $societeForm->isValid()) {
-            $societe->setEmployer($employer);
+            $societe->setEmployeur($employer);
             $entityManager->persist($societe);
             $entityManager->flush();
         }

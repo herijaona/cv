@@ -97,15 +97,16 @@ class Employer
      */
     private $Poste;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Societe::class, mappedBy="employer")
-     */
-    private $Societe;
 
     /**
      * @ORM\OneToMany(targetEntity=Job::class, mappedBy="employer")
      */
     private $Jobs;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Societe::class, mappedBy="Employeur", cascade={"persist", "remove"})
+     */
+    private $societe;
 
 
     public function __construct()
@@ -304,35 +305,7 @@ class Employer
         return $this;
     }
 
-    /**
-     * @return Collection|Societe[]
-     */
-    public function getSociete(): Collection
-    {
-        return $this->Societe;
-    }
 
-    public function addSociete(Societe $societe): self
-    {
-        if (!$this->Societe->contains($societe)) {
-            $this->Societe[] = $societe;
-            $societe->setEmployer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSociete(Societe $societe): self
-    {
-        if ($this->Societe->removeElement($societe)) {
-            // set the owning side to null (unless already changed)
-            if ($societe->getEmployer() === $this) {
-                $societe->setEmployer(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Job[]
@@ -360,6 +333,28 @@ class Employer
                 $job->setEmployer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($societe === null && $this->societe !== null) {
+            $this->societe->setEmployeur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($societe !== null && $societe->getEmployeur() !== $this) {
+            $societe->setEmployeur($this);
+        }
+
+        $this->societe = $societe;
 
         return $this;
     }

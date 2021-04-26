@@ -103,8 +103,7 @@
 							<div class="popular-jobs-box">
 								<div class="popular-jobs-box">
 									<div class="popular-jobs-box-detail">
-										<img src="" alt="">
-										<h4>Google Inc</h4>
+										<h4>{{Job.employer.societe.nom}}</h4>
 										<span class="desination">{{Job.Titre}}</span>
 									</div>
 								</div>
@@ -117,12 +116,9 @@
 									</ul>
 								</div>
 							</div>
-							<a href="#" class="btn btn-popular-jobs bt-1">Voire Detail</a>
+							<a href="{{ path('job_detail', {'id': Job.id}) }}" class="btn btn-popular-jobs bt-1">Voire Detail</a>
 						</div>
 					</div>
-					<pre>
-						{{ dump(Job) }}
-					</pre>
 				{% endfor %}
 
 

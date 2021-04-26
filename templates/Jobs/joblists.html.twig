@@ -98,15 +98,15 @@
 										<div class="col-md-6 col-sm-6">
 											<a href="new-job-detail.html" title="job Detail">
 												<div class="advance-search-img-box">
-													<img src="{{ vich_uploader_asset(Employ, 'imageFile') }}" class="img-responsive" alt="">
+													<img src="{{ asset('images/societe/' ~ Employ.employer.societe.Logo) }}" class="img-responsive" alt="">
 												</div>
 											</a>
 											<div class="advance-search-caption">
 												<a href="new-job-detail.html" title="Job Dtail">
 													<h4>{{ Employ.Titre }}</h4>
 												</a>
-												<span>//nomSociete
-																																																																																																								Ltd</span>
+												<span>{{Employ.employer.societe.nom}}
+													Ltd</span>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-4">
@@ -120,10 +120,6 @@
 											<a href="{{ path('job_detail', {'id': Employ.id}) }}" class="btn advance-search">Voire Detail</a>
 										</div>
 									</div>
-
-									<pre>
-										{{ dump(Employ) }}
-									</pre>
 								</article>
 							{% endfor %}
 						</div>
