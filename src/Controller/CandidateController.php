@@ -101,7 +101,7 @@ class CandidateController extends AbstractController
         //On définit les options du PDF
         $pdfOptions = new Options();
         //Choisir un police par défaut       
-        $pdfOptions->setDefaultFont('Roboto');
+        $pdfOptions->setDefaultFont('Century Gothic');
         $pdfOptions->setIsRemoteEnabled(true);
         //On instance Dompdf
         $dompdf = new Dompdf($pdfOptions);

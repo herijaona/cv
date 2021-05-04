@@ -5,11 +5,11 @@
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}{% endblock %}
+			{% block Stylesheet %}
+				<link rel="stylesheet" href="{{ asset('assets/css/pdfstyle.css') }}">	
+			{% endblock %}
 		</title>
-
-
 	</head>
-
 	<body>
 		{% block body %}{% endblock %}
 	</body>
