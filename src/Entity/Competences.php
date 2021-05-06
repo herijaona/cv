@@ -23,13 +23,13 @@ class Competences
      * @ORM\Column(type="string", length=255)
      * @Groups("Cv:ecrire")
      */
-    private $TitreDeCompetence;
+    private $Competence;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      * @Groups("Cv:ecrire")
      */
-    private $ValeurPorcentage;
+    private $Niveau;
 
     /**
      * @ORM\ManyToOne(targetEntity=CvForm::class, inversedBy="Competences", cascade={"persist"})
@@ -41,30 +41,6 @@ class Competences
         return $this->id;
     }
 
-    public function getTitreDeCompetence(): ?string
-    {
-        return $this->TitreDeCompetence;
-    }
-
-    public function setTitreDeCompetence(string $TitreDeCompetence): self
-    {
-        $this->TitreDeCompetence = $TitreDeCompetence;
-
-        return $this;
-    }
-
-    public function getValeurPorcentage(): ?int
-    {
-        return $this->ValeurPorcentage;
-    }
-
-    public function setValeurPorcentage(int $ValeurPorcentage): self
-    {
-        $this->ValeurPorcentage = $ValeurPorcentage;
-
-        return $this;
-    }
-
     public function getCvForm(): ?CvForm
     {
         return $this->cvForm;
@@ -73,6 +49,46 @@ class Competences
     public function setCvForm(?CvForm $cvForm): self
     {
         $this->cvForm = $cvForm;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Competence
+     */ 
+    public function getCompetence()
+    {
+        return $this->Competence;
+    }
+
+    /**
+     * Set the value of Competence
+     *
+     * @return  self
+     */ 
+    public function setCompetence($Competence)
+    {
+        $this->Competence = $Competence;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Niveau
+     */ 
+    public function getNiveau()
+    {
+        return $this->Niveau;
+    }
+
+    /**
+     * Set the value of Niveau
+     *
+     * @return  self
+     */ 
+    public function setNiveau($Niveau)
+    {
+        $this->Niveau = $Niveau;
 
         return $this;
     }

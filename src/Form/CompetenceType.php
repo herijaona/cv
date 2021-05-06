@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Competences;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,15 +14,21 @@ class CompetenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('TitreDeCompetence', TextType::class, [
+            ->add('Competence', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('ValeurPorcentage', RangeType::class, [
+            ->add('Niveau', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'choices'  => [
+                    'Selectionner' => null,
+                    'Notion' => 'Notion',
+                    'Intermediaire' => 'Intermediaire',
+                    'Expert' => 'Expert',
+                ],
             ]);
     }
 

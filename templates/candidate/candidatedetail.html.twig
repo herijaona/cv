@@ -153,28 +153,18 @@
 						<!--Competences-->
 						<div class="row-bottom">
 							<h2 class="detail-title">Competences</h2>
-							<div class="ext-mrg row third-progress">
-								<div class="col-md-6 col-sm-6">
-									<div class="panel-body">
-										{% for Comptence in Competences %}
-											<h3 class="progressbar-title">{{ Comptence.TitreDeCompetence }}</h3>
-											<div class="progress">
-												<div class="progress-bar" style="width: {{ Comptence.ValeurPorcentage }}%; background: #26a9e1;">
-													<span class="progress-icon fa fa-plus" style="border-color:#26a9e1; color:#26a9e1;"></span>
-													<div class="progress-value">{{ Comptence.ValeurPorcentage }}%</div>
-												</div>
-											</div>
-										{% endfor %}
-
-									</div>
-								</div>
-
-							</div>
+							<ul class="trim-edu-list">
+								{% for Comptence in Competences %}
+									<li>
+										<div class="trim-edu">
+											<h4 class="trim-edu-title">{{ Comptence.Competence }}</h4>
+											<strong>{{ Comptence.Niveau }}</strong>
+										</div>
+									</li>
+								{% endfor %}
+							</ul>							
 						</div>
-						<!--Fin de Competences-->
-						<pre>
-							{{ dump(candidate) }}
-						</pre>
+						<!--Fin de Competences-->						
 					</div>
 
 					<div class="col-lg-4 col-md-4">

@@ -19,7 +19,7 @@
 			</div>
 		</div>
     <-- Educations -->
-    <div class="row">
+    <div class="row titrecontent">
       <div class="col-12">
         <h3 class="timeline-titre">Educations: </h3>
       </div>
@@ -29,11 +29,11 @@
         <div class="timeline">
           {% for Education in Educations %}
             <div class="timeline-items">
-              <h4 class="items-titre">{{ Education.titre }}<span class="date">{{ Education.DateDeDebut |date('d/m/Y') }}
+              <h6 class="items-titre">{{ Education.titre }}<span class="date">{{ Education.DateDeDebut |date('d/m/Y') }}
 											-
 											{{ Education.DateDeFin |date('d/m/Y') }}</span>
-									</h4>
-									<strong>{{ Education.NomEcole }}</strong>
+									</h6>
+									<p>Chez: <strong>{{ Education.NomEcole }}</strong></p>
 									<p>{{ Education.Description }}</p>            
             </div>
           {% endfor %}               
@@ -41,7 +41,7 @@
 			</div>			  
 		</div>
     <-- Educations -->
-    <div class="row">
+    <div class="row titrecontent">
       <div class="col-12">
         <h3 class="timeline-titre">Experiences: </h3>
       </div>
@@ -51,18 +51,18 @@
         <div class="timeline">
           {% for Experience in Experiences %}
             <div class="timeline-items">
-              <h4 class="items-titre">{{ Experience.Titre }}<span class="date">{{ Experience.DateDebut |date('d/m/Y') }}
+              <h6 class="items-titre">{{ Experience.Titre }}<span class="date">{{ Experience.DateDebut |date('d/m/Y') }}
 											-
 											{{ Experience.DateFin |date('d/m/Y') }}</span>
-									</h4>
-									<strong>{{ Experience.NomDeSociete }}</strong>
+									</h6>
+									<p>Chez: <strong>{{ Experience.NomDeSociete }}</strong></p>
 									<p>{{ Experience.Description }}</p>            
             </div>
           {% endfor %}               
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row titrecontent">
       <div class="col-12">
         <h3 class="timeline-titre">Formations: </h3>
       </div>
@@ -72,18 +72,18 @@
         <div class="timeline">
           {% for Formation in Formations %}
             <div class="timeline-items">
-              <h4 class="items-titre">{{ Formation.Formation }}<span class="date">{{ Formation.DateDebut |date('d/m/Y') }}
+              <h6 class="items-titre">{{ Formation.Formation }}<span class="date">{{ Formation.DateDebut |date('d/m/Y') }}
 											-
 											{{ Formation.DateFin |date('d/m/Y') }}</span>
-									</h4>
-									<strong>{{ Formation.Etablissement }}</strong>
+									</h6>
+									<p>Chez: <strong>{{ Formation.Etablissement }}</strong></p>
 									<p>{{ Formation.Descirption }}</p>            
             </div>
           {% endfor %}               
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row titrecontent">
       <div class="col-12">
         <h3 class="timeline-titre">Langues: </h3>
       </div>
@@ -93,11 +93,23 @@
         <div class="timeline">
           {% for Langue in Langues %}
             <div class="timeline-items">
-              <h4 class="items-titre">{{Langue.Langue }}:</h4>									
-									<p>{{ Langue.Niveau }}</p>            
+              <h6 class="items-titre">{{Langue.Langue }}:</h6>									
+							<span>{{ Langue.Niveau }}</span>            
             </div>
           {% endfor %}               
         </div>
+      </div>
+    </div>
+    <div class="row titrecontent">
+      <div class="col-12">
+        <h3 class="timeline-titre">Compétence: </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+      {% for Competence in Competences %}
+        <p><span class="titrecompetences">{{Competence.Competence }}</span>: <span class="valeurs">{{ Competence.Niveau }}</span></p>		
+      {% endfor %}
       </div>
     </div>
 	</div>		
@@ -244,7 +256,7 @@
 
     .row {
       position: relative;
-      width: 100%;
+      width: 100%;     
     }
 
     .row [class^="col"] {
@@ -433,6 +445,16 @@
     .timeline-titre{
       font-weight: bold;
       text-decoration: underline;
+    }
+    .valeurs{
+      font-weigth: lighter;
+    }
+    .titrecompetences{
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .titrecontent{
+      margin-top: -5px !important;
     }
 	</style>
 {% endblock %}

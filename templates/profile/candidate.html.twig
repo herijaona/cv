@@ -503,7 +503,6 @@
 									<div class="row-bottom">
 										<h2 class="detail-title">Langues</h2>
 										<ul class="trim-edu-list">
-
 											{% for Langue in languelist %}
 											<li>
 												<div class="trim-edu">
@@ -512,8 +511,6 @@
 												</div>
 											</li>
 											{% endfor %}
-
-
 										</ul>
 										<button href="javascript:void(0)" data-toggle="modal" data-target="#Langues"
 											class="btn btn-primary">Ajouter Langue</button>
@@ -525,16 +522,16 @@
 											{% for Comptence in Comptencelist %}
 											<div class="col-md-6 col-sm-6">
 												<div class="panel-body">
-													<h3 class="progressbar-title">{{ Comptence.TitreDeCompetence }}</h3>
-													<div class="progress">
-														<div class="progress-bar"
-															style="width: {{ Comptence.ValeurPorcentage }}%; background: #26a9e1;">
-															<span class="progress-icon fa fa-plus"
-																style="border-color:#26a9e1; color:#26a9e1;"></span>
-															<div class="progress-value">{{ Comptence.ValeurPorcentage
-																}}%</div>
-														</div>
-													</div>
+													<ul class="trim-edu-list">
+														{% for Comptence in Comptencelist %}
+															<li>
+																<div class="trim-edu">
+																	<h4 class="trim-edu-title">{{ Comptence.Competence }}</h4>
+																	<strong>{{ Comptence.Niveau }}</strong>
+																</div>
+															</li>
+														{% endfor %}
+													</ul>
 												</div>
 											</div>
 											{% endfor %}
@@ -1422,12 +1419,12 @@
 						{{ form_start(CompetencesForm) }}
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
-								{{ form_row(CompetencesForm.TitreDeCompetence) }}
+								{{ form_row(CompetencesForm.Competence) }}
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 30px !important;">
 							<div class="form-group">
-								{{ form_row(CompetencesForm.ValeurPorcentage) }}
+								{{ form_row(CompetencesForm.Niveau) }}
 							</div>
 						</div>
 						<div class="form-groups" style="padding: 0 12px 0 12px !important;">
