@@ -34,7 +34,7 @@ $(document).ready(function () {
         $(this).addClass('active');
     });
 
-    $('.listEmploye').on('click', function () {
+    $('.listsEmployeur').on('click', function () {
         $('#tableauDebord').hide();
         $('#PostUnJob').hide();
         $('#AllJob').show();

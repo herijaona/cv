@@ -19,9 +19,13 @@
 					<li>
 						<a href="{{ path('app_logout') }}">
 							<i class="ti-power-off" aria-hidden="true"></i>DECONNEXION</a>
-					</li>
-
+					</li>					
+					
 					{% if app.user.roles[1] == "ROLE_CANDIDATE" %}
+						<li class="left-br">
+							<a href="{{ path('Admin_profile') }}" class="signin">Tableau de Bord</a>
+						</li>
+					{% elseif app.user.roles[1] == "ROLE_ADMIN"%}
 						<li class="left-br">
 							<a href="{{ path('Candidate_profile') }}" class="signin">Tableau de Bord</a>
 						</li>

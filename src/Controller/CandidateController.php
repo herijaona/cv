@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CandidateController extends AbstractController
 {
@@ -136,5 +138,48 @@ class CandidateController extends AbstractController
         ]);
 
         return new Response();
+    }  
+
+    /**     
+     *  @Route("/create-checkout-session", name="checkout1") 
+     */
+
+    public function payment(){
+
+        \Stripe\Stripe::setApiKey('sk_test_51ItRdLEkkK5KiVZbN7Tl94oFK6Kmuy5sKVNB9i46jdaBmuu071DpP4Am6oxiuAw0UmENGMCQjXg8i5tUDungszs700oAbTsT4P');
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+              'price_data' => [
+                'currency' => 'eur',
+                'product_data' => [
+                  'name' => 'T-shirt',
+                ],
+                'unit_amount' => 2000,
+              ],
+              'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl("paymment_reussie", [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('payment_erroner', [], UrlGeneratorInterface::ABSOLUTE_URL),
+          ]);
+
+        return new JsonResponse([ 'id' => $session->id ]);      
+
+    }
+    
+    
+    /**     
+     *  @Route("/success", name="paymment_reussie") 
+     */
+    public function success(){
+        return $this->render('candidate/succes.html.twig');
+    }
+    /**
+     *
+     * @Route("/error", name="payment_erroner")   
+     */
+    public function error(){
+        return $this->render('candidate/error.html.twig');
     }
 }

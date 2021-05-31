@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+{% include "Partials/header.html.twig" %}
+<div class="clearfix"></div>
+<section class="dashbord-wrap">
+    <div class="container-fluid">
+        <div class="row">
+        <!-- Sidebar barre -->
+        <div class="col-lg-3 col-md-4">
+            <div class="side-dashboard">
+                <div class="dashboard-avatar">
+                    <div class="dashboard-avatar-thumb">
+                        <img src="{{ asset('assets/img/Utilisateur.svg') }}" alt="avatar">
+                    </div>
+                    <div class="dashboard-avatar-text">
+                        <h4>admin</h4>
+                    </div>
+                </div>
+                <div class="dashboard-menu">
+              	<ul>
+                  <li class="tableauDeBordAdmin active">
+                    <a href="#">
+                        <i class="ti-dashboard"></i>Tableau de Bord</a>
+                    </a>
+                  </li>
+                  <li class="listJob">
+                    <a href="#"> List des tous les Jobs </a>
+                  </li>
+                  <li class="listDesCandidate">
+                    <a href="#">List des candidate</a>
+                  </li>
+                  <li class="listDesEmployeur">
+                    <a href="#"> List des tous les Employeurs </a>
+                  </li>                  
+                  <li class="listdesCv">
+                    <a href="#">List des CV</a>
+                  </li>
+              	</ul>
+            </div>
+            </div>
+            
+        </div>
+        <!-- Fin desSidebar barre -->
+        <!-- Contenu Tableu de Bord Admin -->
+        <div class="col-lg-9 col-md-8" id="tableauDeBordAdmin">
+            <div class="dashboard-body">
+					<div class="dashboard-caption">
+
+						<div class="dashboard-caption-header">
+							<h4>
+								<i class="ti-settings"></i>Tableau de Bord Admin
+							</h4>
+						</div>
+
+						<div class="dashboard-caption-wrap">
+
+							<!-- Overview -->
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-1">
+										<div class="dashboard-stat-content">
+											<h4>0</h4>
+											<span>Job Poster</span>
+										</div>
+										<div class="dashboard-stat-icon">
+											<i class="ti-location-pin"></i>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-6 col-md-6 col-sm-12">
+									<div class="dashboard-stat widget-3">
+										<div class="dashboard-stat-content">
+											<h4>0</h4>
+											<span>Total Views</span>
+										</div>
+										<div class="dashboard-stat-icon">
+											<i class="ti-pie-chart"></i>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+
+							<!-- Notifications -->
+							<div class="row">
+								<div class="col-lg-6 col-md-12">
+									<div class="dashboard-gravity-list with-icons">
+										<h4>Recent Activities</h4>										
+									</div>
+								</div>
+
+								<div class="col-lg-6 col-md-12">
+									<div class="dashboard-gravity-list invoices with-icons">
+										<h4>Invoices</h4>										
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+        </div>
+        <!-- Fin de Contenu Tableu de Bord Admin -->
+
+        <!-- Contenu list des Employeurs-->
+        <div class="col-lg-9 col-md-8" id="listsJobs">
+            <div class="dashboard-body">
+                <div class="dashboard-caption">
+                    <div class="dashboard-caption-header">
+                        <h4>
+                            <i class="ti-list"></i> 
+                            List des Jobs
+                        </h4>
+                    </div>
+                    <div class="dashboard-caption-wrap">
+                        <p>contenu 2</p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <!-- Fin de Contenu list des Employeurs -->
+
+		<!-- Contenu list des Candidats-->
+        <div class="col-lg-9 col-md-8" id="listCanidats">
+            <div class="dashboard-body">
+                <div class="dashboard-caption">
+                    <div class="dashboard-caption-header">
+                        <h4>
+                            <i class="ti-list"></i> 
+                            List des Candidats
+                        </h4>
+                    </div>
+                    <div class="dashboard-caption-wrap">
+                        <p>contenu 2</p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <!-- Fin de Contenu list des Candidats -->
+
+		<!-- Contenu list des Employeur-->
+        <div class="col-lg-9 col-md-8" id="listsEmployeur">
+            <div class="dashboard-body">
+                <div class="dashboard-caption">
+                    <div class="dashboard-caption-header">
+                        <h4>
+                            <i class="ti-list"></i> 
+                            List des Employer
+                        </h4>
+                    </div>
+                    <div class="dashboard-caption-wrap">
+                        <!-- row -->
+								<div class="row">
+
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Search Name">
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="form-group">
+											<select id="jb-filter" class="form-control">
+												<option>Choose Job Status</option>
+												<option>All Jobs</option>
+												<option>Approved Jobs</option>
+												<option>Expire Jobs</option>
+												<option>Pending Payment</option>
+												<option>Rejected Jobs</option>
+												<option>Draft Jobs</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="form-group">
+											<select id="jb-filter-date" class="form-control">
+												<option>Default Shorting</option>
+												<option>Title</option>
+												<option>Date</option>
+												<option>Modifications</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<!-- row -->
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <!-- Fin de Contenu list des Employeur -->
+
+		<!-- Contenu list des Cv-->
+        <div class="col-lg-9 col-md-8" id="listCvs">
+            <div class="dashboard-body">
+                <div class="dashboard-caption">
+                    <div class="dashboard-caption-header">
+                        <h4>
+                            <i class="ti-list"></i> 
+                            List des CV
+                        </h4>
+                    </div>
+                    <div class="dashboard-caption-wrap">
+                        <p>contenu 4</p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <!-- Fin de Contenu list des CV -->
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+{% include "Partials/footer.html.twig" %}
+{% endblock %}
+{% block javascripts %}   
+	<script src="{{ asset('assets/plugins/js/jquery.min.js')}}"></script>	
+	<script src="{{ asset('assets/js/admin_tab.js')}}" defer></script>
+{% endblock %}
